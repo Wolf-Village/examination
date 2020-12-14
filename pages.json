@@ -1,0 +1,69 @@
+{
+	"pages": [{
+		"path": "pages/home/home",
+		"style": {
+			"navigationBarTitleText": "首页"
+		}
+	},{
+		"path": "pages/examination/examination",
+		"style": {
+			"navigationBarTitleText": "考试页面"
+		}
+	},{
+		"path": "pages/practice/practice",
+		"style": {
+			"navigationBarTitleText": "练习页面"
+		}
+	},{
+		"path": "pages/search/search",
+		"style": {
+			"navigationBarTitleText": "搜索页面"
+		}
+	},{
+		"path": "pages/my/my",
+		"style": {
+			"navigationBarTitleText": "我的页面"
+		}
+	}],
+	"tabBar": {
+	    "color": "#554D53",
+	    "selectedColor": "#1296db",
+	    "borderStyle": "black",
+	    "backgroundColor": "#ffffff",
+	    "list": [{
+	        "pagePath": "pages/home/home",
+	        "iconPath": "static/iconimg/home.png",
+	        "selectedIconPath": "static/iconimg/home_S.png",
+	        "text": "首页"
+	    }, {
+	        "pagePath": "pages/examination/examination",
+	        "iconPath": "static/iconimg/exam.png",
+	        "selectedIconPath": "static/iconimg/exam_S.png",
+	        "text": "考试页面"
+	    }, {
+	        "pagePath": "pages/practice/practice",
+	        "iconPath": "static/iconimg/practice.png",
+	        "selectedIconPath": "static/iconimg/practice_S.png",
+	        "text": "练习页面"
+	    }, {
+	        "pagePath": "pages/search/search",
+	        "iconPath": "static/iconimg/search.png",
+	        "selectedIconPath": "static/iconimg/search_S.png",
+	        "text": "搜索页面"
+	    }, {
+	        "pagePath": "pages/my/my",
+	        "iconPath": "static/iconimg/my.png",
+	        "selectedIconPath": "static/iconimg/my_S.png",
+	        "text": "我的页面"
+	    }]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"background": "#efeff4"
+		}
+	}
+}
