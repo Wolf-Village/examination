@@ -84,7 +84,7 @@
 			<view class="box-buttom ">
 				<view class="flex col-3">
 					<!-- 收藏按钮 -->
-					<uni-fav :checked="checked" class="favBtn margin-right-lg" circle="true" fg-color="#000000" fg-color-checked="#FFFFFF"
+					<uni-fav :checked="admin.sign.includes(topicsList[index].id)" class="favBtn margin-right-lg" circle="true" fg-color="#000000" fg-color-checked="#FFFFFF"
 					 bg-color="#cacaca" bg-color-checked="#007AFF" @click="onClick"></uni-fav>
 					<!-- 统计答对数 -->
 					<view class="flex flex-sub align-center justify-center">
@@ -148,10 +148,13 @@
 				trueAnswerNum: 0,
 				// 错误答案数
 				falseAnswerNum: 0,
+				// 用户信息
+				admin: {}
 			}
 		},
 		mounted() {
 			this.requestInterface(1)
+			this.admin = uni.getStorageSync('admin')
 		},
 		methods: {
 			// 请求题库
@@ -296,8 +299,8 @@
 					url: baseUrl+'/collection',
 					method: 'POST',
 					data: {
-						id: 1,
-						userid: 11,
+						id: this.topicsList[this.index].id,
+						userid: this.admin.userid,
 						type:collectionType
 					},
 					success:({data})=>{

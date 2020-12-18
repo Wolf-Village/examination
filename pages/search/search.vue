@@ -1,6 +1,6 @@
 <template>
 	<view>
-		搜索页面
+		搜索页面啊啊啊
 	</view>
 </template>
 
