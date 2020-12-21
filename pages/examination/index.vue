@@ -1,9 +1,7 @@
 <template>
 	<view>
 		<view class="margin-xl cardbox shadow bg-white radius padding-sub ">
-			<view class="cu-avatar lg round bg-red">
-				<text>wl</text>
-			</view>
+			<view class="cu-avatar xl round bg-grey" style="background-image:url(http://8.131.83.251:3981/img/upload/default.png);"></view>
 			<view class="padding">考试类型：前端考试</view>
 			<view class="padding">考试标准：</view>
 			<view class="padding">合格标准：90分及格</view>

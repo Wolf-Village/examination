@@ -1,6 +1,6 @@
 <template>
 	<view class="ziliaoBody">
-		<view class="ziliaoList"  v-for='(item,index) in ziliaoList' :keys='index'>
+		<view class="ziliaoList"  v-for='(item,index) in ziliaoList' :key='index'>
 			<view class="list-item">
 				<view class="list-left">头像</view>
 				<image class="list-image" src="../../../static/my/head.png" @click="getPhoto"></image>

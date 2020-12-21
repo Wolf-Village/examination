@@ -87,12 +87,12 @@
 			"selectedIconPath": "static/iconimg/home_S.png",
 			"text": "首页"
 		}, {
-			"pagePath": "pages/examination/examination",
+			"pagePath": "pages/examination/index",
 			"iconPath": "static/iconimg/exam.png",
 			"selectedIconPath": "static/iconimg/exam_S.png",
 			"text": "考试"
 		}, {
-			"pagePath": "pages/practice/practice",
+			"pagePath": "pages/practice/index",
 			"iconPath": "static/iconimg/practice.png",
 			"selectedIconPath": "static/iconimg/practice_S.png",
 			"text": "练习"

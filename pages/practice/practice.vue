@@ -84,7 +84,7 @@
 			<view class="box-buttom ">
 				<view class="flex col-3">
 					<!-- 收藏按钮 -->
-					<uni-fav :checked="admin.sign.includes(topicsList[index].id)" class="favBtn margin-right-lg" circle="true" fg-color="#000000" fg-color-checked="#FFFFFF"
+					<uni-fav :checked="admin? admin.sign.includes(topicsList[index].id) : false" class="favBtn margin-right-lg" circle="true" fg-color="#000000" fg-color-checked="#FFFFFF"
 					 bg-color="#cacaca" bg-color-checked="#007AFF" @click="onClick"></uni-fav>
 					<!-- 统计答对数 -->
 					<view class="flex flex-sub align-center justify-center">
@@ -149,12 +149,14 @@
 				// 错误答案数
 				falseAnswerNum: 0,
 				// 用户信息
-				admin: {}
+				admin: false
 			}
 		},
 		mounted() {
 			this.requestInterface(1)
-			this.admin = uni.getStorageSync('admin')
+			if(uni.getStorageSync('admin')){
+				this.admin = uni.getStorageSync('admin')
+			}
 		},
 		methods: {
 			// 请求题库
@@ -287,6 +289,13 @@
 			},
 			// 收藏按钮
 			onClick: function() {
+				if(!this.admin){
+					uni.showToast({
+						title:'您还没登录',
+						icon:'none'
+					})
+					return false
+				}
 				this.checked = !this.checked
 				let collectionType = 'add'
 				console.log('已收藏')

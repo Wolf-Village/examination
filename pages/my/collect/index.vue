@@ -3,7 +3,7 @@
 		<view class="collectBody-title" @click="shoucang">
 			累计收藏 道
 		</view>
-		<view class="collectBody-list" v-for='(item,index) in lists' :keys='index' :text='item.id'>
+		<view class="collectBody-list" v-for='(item,index) in lists' :key='index' :text='item.id'>
 				<uni-swipe-action>
 				    <uni-swipe-action-item :right-options="options" @click="cancel(item.id)" @change="change">
 						<uni-collapse accordion="true">
@@ -31,7 +31,6 @@
 				</uni-swipe-action>	
 			</view>				
 		</view>
-	</view>
 </template>
 <script>
 import uniCollapse from '@/components/uni-collapse/uni-collapse.vue'

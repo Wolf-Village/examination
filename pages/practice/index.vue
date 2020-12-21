@@ -1,15 +1,16 @@
 <template>
 	<view>
 		<view class="margin-xl cardbox shadow bg-white radius padding-sub ">
-			<view class="cu-avatar lg round bg-red">
-				<text>wl</text>
+			<view v-if="!imgUrl" class="cu-avatar xl round  bg-red">
+				<text class="avatar-text">未登录</text>
 			</view>
+			<view v-else class="cu-avatar xl round bg-grey" :style="{backgroundImage:'url('+ imgUrl +')' }"></view>
 			<view class="padding">考试类型：前端练习</view>
 			<view class="padding">考试标准：</view>
 			<view class="padding">合格标准：无标准</view>
 			<view class="padding">出题规则：根据北极星工作室技术部出题规则</view>
 			<view class="text-xs padding">
-				<text class="text-gray">计分规则：考试不能修改答案，每错1题扣10分，错题累计超过5道，考试不通过。</text>
+				<text class="text-gray">计分规则：考试不能修改答案，每错1题扣1分，错题累计超过40道，考试不通过。</text>
 			</view>
 		</view>
 		<view class="margin-xl">
@@ -24,6 +25,12 @@
 	export default{
 		data(){
 			return{
+				imgUrl:false
+			}
+		},
+		mounted() {
+			if(uni.getStorageSync('admin').portrait){
+				this.imgUrl = uni.getStorageSync('admin').portrait
 			}
 		},
 		methods: {
