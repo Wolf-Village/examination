@@ -6,7 +6,7 @@
 					<image src="../../static/my/zhuce.png" mode="" @click="login"></image>
 				</view>
 				<view class="mYTopHL">
-					<text>{{this.admin == '' ? '未登录' :this.username}}</text>
+					<text>{{admin == '' ? '未登录' :admin.username}}</text>
 				</view>
 				<view class="myTupHh">
 					立即预测考试通过率
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+	import {mapState} from 'vuex'
 	import uniPopup from '@/components/uni-popup/uni-popup.vue'
 	import uniPopupMessage from '@/components/uni-popup/uni-popup-message.vue'
 	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue'
@@ -50,18 +51,11 @@
 	    },
 		data() {
 			return {
-				admin:'',
 				username:''
 			}
 		},
-		onShow(){
-			// 拿到存储在本地的数据
-			const admin = uni.getStorageSync('admin')
-			this.admin = admin;
-			if(admin != ''){
-				const {username} = admin;
-				this.username = username
-			}
+		computed:{
+			...mapState(['admin'])
 		},
 		methods: {
 			login(e){
