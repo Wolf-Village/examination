@@ -28,7 +28,7 @@
 				imgUrl:false
 			}
 		},
-		mounted() {
+		onShow() {
 			if(uni.getStorageSync('admin').portrait){
 				this.imgUrl = uni.getStorageSync('admin').portrait
 			}

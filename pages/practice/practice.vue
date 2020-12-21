@@ -156,6 +156,7 @@
 			this.requestInterface(1)
 			if(uni.getStorageSync('admin')){
 				this.admin = uni.getStorageSync('admin')
+				this.admin.sign = JSON.parse(this.admin.sign)
 			}
 		},
 		methods: {
@@ -198,9 +199,9 @@
 			},
 			// 请求下一页的题目数据
 			nextPageInterface: function() {
-				// console.log(Math.ceil(this.topicsList.length/10))
-				const page = Math.ceil(this.topicsList.length / 10)
-				if (this.index + 1 == this.topicsList.length - 1 && this.topicsList.length<100) {
+				const topicsListLen = this.topicsList.length
+				const page = Math.ceil(topicsListLen / 10)
+				if (this.index + 1 == topicsListLen - 1 && topicsListLen<100) {
 					console.log('请求数据')
 					this.requestInterface(page + 1)
 				}
@@ -243,7 +244,6 @@
 			checkboxChange: function() {
 				const checkboxValue = this.selectAnswerList[this.index]
 				const newTrueAnswer = this.topicsList[this.index].answer
-				// console.log(this.topicsList[this.index])
 				// 返回两个数组的公共部分
 				let newList = checkboxValue.filter((val) => {
 					return newTrueAnswer.indexOf(val) > -1
@@ -289,6 +289,7 @@
 			},
 			// 收藏按钮
 			onClick: function() {
+				const topicsListId = this.topicsList[this.index].id
 				if(!this.admin){
 					uni.showToast({
 						title:'您还没登录',
@@ -296,23 +297,27 @@
 					})
 					return false
 				}
-				this.checked = !this.checked
 				let collectionType = 'add'
-				console.log('已收藏')
-				if(this.checked){
+				if(!this.admin.sign.includes(topicsListId)){
 					collectionType= 'add'
+					this.admin.sign.push(topicsListId)
 				}else{
 					collectionType= 'delete'
+					this.admin.sign = this.admin.sign.filter(item => item !== topicsListId )
 				}
 				uni.request({
 					url: baseUrl+'/collection',
 					method: 'POST',
 					data: {
-						id: this.topicsList[this.index].id,
+						id: topicsListId,
 						userid: this.admin.userid,
 						type:collectionType
 					},
 					success:({data})=>{
+						uni.showToast({
+							title: data.msg,
+							icon: 'none'
+						})
 						console.log(data)
 					}
 				})
