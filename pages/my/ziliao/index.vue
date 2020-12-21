@@ -1,6 +1,6 @@
 <template>
 	<view class="ziliaoBody">
-		<view class="ziliaoList"  v-for='(item,index) in ziliaoList' :keys='index'>
+		<view class="ziliaoList">
 			<view class="list-item">
 				<view class="list-left">头像</view>
 				<image class="list-image" src="../../../static/my/head.png" @click="getPhoto"></image>
@@ -8,16 +8,27 @@
 			</view>
 			<view class="list-item">
 				<view class="list-left">昵称</view>
-				<view class="list-center" @click="nicheng">{{item.username}}</view>
+				<view class="list-center" @click="nicheng">温暖的派大星</view>
 				<image class="list-right" src="../../../static/my/jiantou.png" mode=""></image>
 			</view>
 			<view class="list-item">
 				<view class="list-left">性别</view>
-				<view class="list-center" style="width: 25vw;">{{item.sex}}</view>
+				<view class="list-center" style="width: 25vw;">男</view>
+				<image class="list-right" src="../../../static/my/jiantou.png" mode=""></image>
+			</view>
+			<view class="list-item">
+				<view class="list-left">手机号</view>
+				<view class="list-center" style="width: 25vw;">{{this.admin == '' ? '未登录' :this.username}}</view>
+				<image class="list-right" src="../../../static/my/jiantou.png" mode=""></image>
+			</view>
+			<view class="list-item">
+				<view class="list-left">密码</view>
+				<view class="list-center" style="width: 25vw;">************</view>
+				<image class="list-right" src="../../../static/my/jiantou.png" mode=""></image>
 			</view>
 			<view class="list-item">
 				<view class="list-left">地址</view>
-				<view class="list-center" style="width: 25vw;">{{item.diqu}}</view>
+				<view class="list-center" style="width: 25vw;">北京市</view>
 			</view>
 			<view class="list-item">个人简介</view>
 		</view>
@@ -33,36 +44,22 @@ import { pathToBase64, base64ToPath } from '../../../js_sdk/gsq-image-tools/imag
 	export default {
 		data() {
 			return {
-				userid:'',
-				ziliaoList:[
-					{
-						heade:'222222',
-					}
-				],
-				ziliaoList:[
-					{
-						username:'Mi Sihds',
-						sex:'男',
-						diqu:'北京市 昌平区'
-					}
-				]
+				admin:'',
+				username:'',
+				nickname:''
+			}
+		},
+		onShow(){
+			// 拿到存储在本地的数据
+			const admin = uni.getStorageSync('admin')
+			this.admin = admin;
+			if(admin != ''){
+				const {username} = admin;
+				this.username = username
+				console.log(this.username)
 			}
 		},
 		methods: {
-			// 获取地址
-			// diqu(){
-			// 	uni.getLocation({
-			// 	    type: 'wgs84',
-			// 	　　 geocode:true,
-			// 	    success: function (res) {
-			// 	        // console.log(res.address.province);
-			// 	        // console.log(res.address.city);
-			// 	        // console.log(res.address.district);
-			// 			this.diqulist = res.address
-			// 			console.log(this.diqulist.province)
-			// 	    }
-			// 	});
-			// },
 			// 获取用户投向信息
 			getPhoto() {
 			        let id = uni.getStorageSync('userid').id

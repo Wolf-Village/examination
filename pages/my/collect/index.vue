@@ -3,7 +3,7 @@
 		<view class="collectBody-title" @click="shoucang">
 			累计收藏 道
 		</view>
-		<uni-list class="collectBody-list" v-for="(item,index) in productList"  :keys='index' :text='item.id'>		
+		<uni-list class="collectBody-list" v-for="(item,index) in productList"  :key='index' :text='item.id'>		
 			    <uni-list-item>
 					<!--  :title="item.author_name" :note="item.title" -->
 					<!-- <uni-swipe-action> -->
@@ -36,7 +36,6 @@
 			</uni-list>
 			</view>				
 		</view>
-	</view>
 </template>
 <script>
 import uniCollapse from '@/components/uni-collapse/uni-collapse.vue'
