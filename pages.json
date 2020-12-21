@@ -20,11 +20,25 @@
 			"navigationBarTitleText": "搜索页面"
 		}
 	},{
+		"path": "pages/search/details",
+		"style": {
+			"navigationBarTitleText": "搜索详情页面"
+		}
+	},{
 		"path": "pages/my/my",
 		"style": {
 			"navigationBarTitleText": "我的页面"
 		}
-	}],
+	}    ,{
+            "path" : "pages/search/details",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"tabBar": {
 	    "color": "#554D53",
 	    "selectedColor": "#1296db",
