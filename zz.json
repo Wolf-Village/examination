@@ -1,0 +1,16 @@
+"[{"
+title ":"
+A.赋值操作符的结合性是从左至右。 ","
+checked ":false},{"
+title ":"
+B.“i = j = k = "Hello Pomelo!";”
+的含义是把三个变量都初始化为 "Hello Pomelo!"。
+","
+checked ":false},{"
+title ":"
+C.赋值操作符的结合性是从右至左。 ","
+checked ":false},{"
+title ":"
+D.赋值表达式的值就是右操作数的值。 ","
+checked ":false}
+]"
