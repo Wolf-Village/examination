@@ -59,10 +59,10 @@
 						method:'POST',
 						data:{username:this.username,password:this.password},
 						success(data){
-							console.log(data.data)
+							// console.log(data.data)
 							if(data.data.code === 0){
 								uni.showToast({
-									title:'登陆失败 请重试',
+									title:'注册失败 请重试',
 									icon:'none'
 								});
 							}else if(data.data.code === 200){
