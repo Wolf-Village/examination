@@ -1,10 +1,17 @@
 {
-	"pages": [{
+	"pages": [
+		{
 		"path": "pages/home/home",
 		"style": {
 			"navigationBarTitleText": "首页"
 		}
 	},{
+		"path": "pages/home/newsdate",
+		"style": {
+			"navigationBarTitleText": "消息详情"
+		}
+	},
+	{
 		"path": "pages/examination/examination",
 		"style": {
 			"navigationBarTitleText": "考试页面"
