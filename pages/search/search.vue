@@ -1,8 +1,4 @@
 <template>
-<<<<<<< HEAD
-	<view>
-		搜索页面啊啊啊
-=======
 	<view style="    margin: auto;
     width: 95%;">
 		<view class="jincehng-input-box">
@@ -40,9 +36,6 @@
 			
 			</view>
 		</view>
-		
-
->>>>>>> wy
 	</view>
 </template>
 <script>
@@ -63,7 +56,12 @@
 				// 答案
 				optionList: ['A', 'B', 'C', 'D'],
 				// 搜索历史
-				historyList: []
+				historyList: ['1']
+			}
+		},
+		onLoad: function() {
+			if(uni.getStorageSync("lishi")){
+				this.historyList = uni.getStorageSync("lishi");
 			}
 		},
 		methods: {
@@ -165,9 +163,6 @@
 					url: `/pages/search/details?id=` + id
 				})
 			},
-		},
-		onLoad: function() {
-			this.historyList = uni.getStorageSync("lishi");
 		}
 
 	}

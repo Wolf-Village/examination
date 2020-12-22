@@ -61,7 +61,6 @@
 					</radio-group>
 					<!-- 多选题答案样式 -->
 					<checkbox-group class="white100" v-if="topicsList[index].type==='checkbox'" @change="(e)=>radioChange(e,'checkbox')">
-					{{answerTrueFalse[index]}}
 						<label class="white100 flex padding-lr padding-top align-center" v-for="(items,indexs) in topicsList[index].options" :key="topicsList[index].id+items.title">
 							<view class="margin-xs radius">
 								<checkbox :disabled='answerTrueFalse[index]!==null' :value="`${indexs}`" :checked="selectAnswerList[index].includes(indexs)"/>
@@ -75,7 +74,7 @@
 
 				</view>
 				<!-- 答案解析 -->
-				<view class="padding" v-if="selectAnswerList[index] !== null && topicsList[index].type!=='checkbox'">
+				<view class="padding" v-if="answerTrueFalse[index] !== null">
 					<view class="text-orange text-xl">解析:</view>
 					<view class="text-gray text-df" style="text-indent: 2rem;">{{topicsList[index].explain}}</view>
 				</view>
@@ -156,7 +155,8 @@
 			this.requestInterface(1)
 			if(uni.getStorageSync('admin')){
 				this.admin = uni.getStorageSync('admin')
-				this.admin.sign = JSON.parse(this.admin.sign)
+				console.log(this.admin)
+				// this.admin.sign = JSON.parse(this.admin.sign)
 			}
 		},
 		methods: {
@@ -254,7 +254,6 @@
 				if (checkboxValue.length !== newList.length) {
 					this.showModel()
 					this.answerTrueAndFalse(false)
-					
 				} else if (newList.length == newTrueAnswer.length) {
 					this.showModel()
 					this.answerTrueAndFalse(true)
@@ -305,22 +304,12 @@
 					collectionType= 'delete'
 					this.admin.sign = this.admin.sign.filter(item => item !== topicsListId )
 				}
-				uni.request({
-					url: baseUrl+'/collection',
-					method: 'POST',
-					data: {
-						id: topicsListId,
-						userid: this.admin.userid,
-						type:collectionType
-					},
-					success:({data})=>{
-						uni.showToast({
-							title: data.msg,
-							icon: 'none'
-						})
-						console.log(data)
-					}
-				})
+				const userObj = {
+					userid:this.admin.userid,
+					topicsListId,
+					collectionType
+				}
+				this.$store.dispatch('collection',userObj)
 			}
 		}
 	}
