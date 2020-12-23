@@ -176,7 +176,9 @@ export default {
     },
   },
   onLoad: function () {
-    this.historyList = uni.getStorageSync("lishi");
+		if(!uni.getStorageSync("lishi")){
+			this.historyList = uni.getStorageSync("lishi");
+		}
   },
 };
 </script>
