@@ -21,7 +21,7 @@
 				正确答案为：<text class="text-red">{{detailslits.answer=='true'?'正确':'错误'}}</text>
 			</view>
 			<view class="jincehng-ti jincheng-font" v-if="detailslits.type=='checkbox'">
-				正确答案为：<text v-for="item in daan">{{optionList[item]}}</text>
+				正确答案为：<text v-for="(item,index) in daan" :key="index">{{optionList[item]}}</text>
 							</view>
 			<view class="jincehng-ti">
 				<text class="jincheng-font text-cyan">题目解析：</text>
