@@ -148,15 +148,16 @@
 				// 错误答案数
 				falseAnswerNum: 0,
 				// 用户信息
-				admin: false
+				admin: false,
+				// 当前题的类型
+				myclss:''
 			}
 		},
-		mounted() {
+		onLoad(options) {
+			this.myclass = options.myclass
 			this.requestInterface(1)
 			if(uni.getStorageSync('admin')){
 				this.admin = uni.getStorageSync('admin')
-				console.log(this.admin)
-				// this.admin.sign = JSON.parse(this.admin.sign)
 			}
 		},
 		methods: {
@@ -165,7 +166,8 @@
 				uni.request({
 					url: baseUrl + '/problem/getdata',
 					data: {
-						page
+						page,
+						myclass:this.myclass
 					},
 					method: 'POST',
 					success: ({
@@ -189,6 +191,13 @@
 							// console.log(this.topicsList)
 						} else {
 							console.log(data.msg)
+						}
+						console.log(data)
+						if(data.data.length==0){
+							uni.showToast({
+								title:'没有更多题目',
+								icon: 'none'
+							})
 						}
 					},
 					fail: () => {
@@ -277,8 +286,8 @@
 			},
 			// 分页器事件
 			SerialNumber: function(e) {
-				this.nextPageInterface()
 				if (e.type == "next") {
+					this.nextPageInterface()
 					this.index += 1
 					this.current = null
 				} else {
