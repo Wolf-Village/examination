@@ -3,58 +3,55 @@
 		<view class="ziliaoList">
 			<view class="list-item">
 				<view class="list-left">头像</view>
-				<image class="list-image" src="../../../static/my/head.png" @click="getPhoto"></image>
-				<image class="list-right" src="../../../static/my/jiantou.png" mode=""></image>
+				<image class="list-image" :src="$store.state.admin.portrait" @click="getPhoto"></image>
 			</view>
-			<view class="list-item">
+			<view class="list-item" @click="selfname">
 				<view class="list-left">昵称</view>
-				<view class="list-center" @click="nicheng">温暖的派大星</view>
-				<image class="list-right" src="../../../static/my/jiantou.png" mode=""></image>
+				<view class="list-center">{{!admin.nickname? '未登录' : admin.nickname}}</view>
 			</view>
 			<view class="list-item">
 				<view class="list-left">性别</view>
-				<view class="list-center" style="width: 25vw;">男</view>
-				<image class="list-right" src="../../../static/my/jiantou.png" mode=""></image>
+				<view class="list-center" style="width: 25vw;">{{!admin.sex? '未登录' : admin.sex}}</view>
 			</view>
 			<view class="list-item">
 				<view class="list-left">手机号</view>
-				<view class="list-center" style="width: 25vw;">{{this.admin == '' ? '未登录' :this.username}}</view>
-				<image class="list-right" src="../../../static/my/jiantou.png" mode=""></image>
+				<view class="list-center" style="width: 25vw;">{{!admin.username ? '未登录' :admin.username}}</view>
 			</view>
 			<view class="list-item">
-				<view class="list-left">密码</view>
-				<view class="list-center" style="width: 25vw;">************</view>
-				<image class="list-right" src="../../../static/my/jiantou.png" mode=""></image>
+				<view class="list-left" @click="signature">个性签名</view>
+				<view class="list-center" style="width: 25vw;">{{!admin.signature? '未登录' : admin.signature}}</view>
 			</view>
-			<view class="list-item">
-				<view class="list-left">地址</view>
-				<view class="list-center" style="width: 25vw;">北京市</view>
-			</view>
-			<view class="list-item">个人简介</view>
 		</view>
-		<view class="goOut">
-			退出登录
+		<view class="goOut" @click='bianji'>
+			编辑资料
 		</view>
 	</view>
 </template>
 
 <script>
-import {baseUrl} from '../../../api/index.js'
-import { pathToBase64, base64ToPath } from '../../../js_sdk/gsq-image-tools/image-tools/index.js'
+	import {
+		baseUrl
+	} from '../../../api/index.js'
+	import {
+		pathToBase64,
+		base64ToPath
+	} from '../../../js_sdk/gsq-image-tools/image-tools/index.js'
 	export default {
 		data() {
 			return {
-				admin:'',
-				username:'',
-				nickname:''
+				admin: '',
+				username: '',
+				nickname: ''
 			}
 		},
-		onShow(){
+		onShow() {
 			// 拿到存储在本地的数据
 			const admin = uni.getStorageSync('admin')
 			this.admin = admin;
-			if(admin != ''){
-				const {username} = admin;
+			if (admin != '') {
+				const {
+					username
+				} = admin;
 				this.username = username
 				console.log(this.username)
 			}
@@ -62,49 +59,46 @@ import { pathToBase64, base64ToPath } from '../../../js_sdk/gsq-image-tools/imag
 		methods: {
 			// 获取用户投向信息
 			getPhoto() {
-			        let id = uni.getStorageSync('userid').id
-			        uni.chooseImage({
-						// 请求接口
-						url:`${baseUrl}/user/hard`,
-						method:'POST',
-						// 从相册中选择
-						sourceType: ['album'],
-						data:{userid:id},
-						success:(res) => {
-						            pathToBase64(res.tempFilePaths[0])
-						            .then(base64 => {
-						              // console.log(base64)
-						              uni.request({
-						                url: `${baseUrl}/user/heard`,
-						                method: 'POST',
-						                name: 'file',
-						                data: {
-						                  userid: id,
-						                  image: base64
-						                },
-						                success: (data) => {
-						                  console.log('上传头像', data.statusCode)
-						                  if (data.code === 404) {
-						                    this.$store.dispatch('userInfo', data.user)
-						                    uni.setStorageSync('userid', data.user)
-						                  } else {
-						                    uni.showToast({
-						                      title: '上传失败',
-						                      icon: 'none'
-						                    })
-						                  }
-						                }
-						              })
-						            })
-						          }
-			        })
+				let _this = this;
+				uni.chooseImage({ //选择图片
+					count: 1,
+					sizeType: ["compressed"],
+					success(res) {
+						var imgsFile = res.tempFilePaths[0]; //获取图片的临时资源
+						uni.uploadFile({ //上传代码
+							url: "http://8.131.83.251:3981/users/herad", //本地 node.js 服务器地址
+							filePath: imgsFile,
+							formData: {
+								userid: _this.$store.state.admin.userid,
+								qianurl: _this.$store.state.admin.portrait
+							},
+							name: "file", //这个东西有点类似与 form 表单中的 name 值 在后面也需要这个
+							success: function(res) {
+								let data = JSON.parse(res.data);
+								_this.$store.commit("getNewZiliao", {
+									portrait: data.imgurl
+								})
+							}
+						})
+					}
+				})
 			},
-			open(){
-			    this.$refs.popup.open()
+			open() {
+				this.$refs.popup.open()
 			},
-			nicheng(){
+			selfname() {
 				uni.navigateTo({
-					url:'/pages/my/ziliao/xiangqing'
+					url: '/pages/my/ziliao/self'
+				})
+			},
+			bianji() {
+				uni.navigateTo({
+					url: '/pages/my/ziliao/bianji'
+				})
+			},
+			signature() {
+				uni.navigateTo({
+					url: '/pages/my/ziliao/signature'
 				})
 			}
 		}
@@ -114,4 +108,3 @@ import { pathToBase64, base64ToPath } from '../../../js_sdk/gsq-image-tools/imag
 <style lang="less" scoped>
 	@import url("@/pages/my/ziliao/index.less");
 </style>
-

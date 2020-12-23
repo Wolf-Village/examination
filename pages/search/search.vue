@@ -1,8 +1,4 @@
 <template>
-<<<<<<< HEAD
-	<view>
-		搜索页面啊啊啊
-=======
 	<view style="    margin: auto;
     width: 95%;">
 		<view class="jincehng-input-box">
@@ -41,8 +37,6 @@
 			</view>
 		</view>
 		
-
->>>>>>> wy
 	</view>
 </template>
 <script>

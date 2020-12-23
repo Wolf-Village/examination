@@ -29,8 +29,7 @@
 		data(){
 			return{
 				username:'',
-				password:'',
-				admin:''
+				password:''
 			}
 		},
 		methods:{
@@ -83,30 +82,6 @@
 						password:this.password
 					}
 					this.$store.dispatch('login',userObj)
-				// uni.request({
-				// 	// 请求接口
-				// 	url:`${baseUrl}/users/login`,
-				// 	// 请求方式
-				// 	method:'POST',
-				// 	data:{username:this.username,password:this.password,userid:this.userid},
-				// 	success(data){
-				// 		console.log(data.data)
-				// 		if(data.data.code == 0){
-				// 			uni.showToast({
-				// 				title:'登陆失败 请重试',
-				// 				icon:'none'
-				// 			});
-				// 		}else if (data.data.code == 200){
-				// 			uni.setStorage({
-				// 				key:'admin',
-				// 				data:data.data.data
-				// 			})
-				// 			uni.switchTab({
-				// 				url:'/pages/my/index'
-				// 			})
-				// 		}
-				// 		}
-				// 	})
 				}
 			},
 			xieyi(){

@@ -6,7 +6,7 @@
 					<image src="../../static/my/zhuce.png" mode="" @click="login"></image>
 				</view>
 				<view class="mYTopHL">
-					<text>{{admin == '' ? '未登录' :admin.username}}</text>
+					<text>{{!admin.username? '未登录' : admin.username}}</text>
 				</view>
 				<view class="myTupHh">
 					立即预测考试通过率
@@ -24,14 +24,15 @@
 				<view class="" @click="serve" class="collect-view">
 					服务协议
 				</view>
-				<view class="" @click="fankui" class="collect-view">
-					帮助与反馈
+				<view class="" @click="mima" class="collect-view">
+					修改密码
 				</view>
 				<view class="collect-view" style="margin: 7px 0px;text-align: center;padding-left: 0px;" @click="open">
 					退出
 				</view>
 				<uni-popup ref="popup" type="dialog">
-				    <uni-popup-dialog type="input" message="成功消息" content='是否确认退出登录' :duration="2000" :before-close="true" @close="close" @confirm="confirm"></uni-popup-dialog>
+					<uni-popup-dialog type="input" message="成功消息" content='是否确认退出登录' :duration="2000" :before-close="true" @close="close"
+					 @confirm="confirm"></uni-popup-dialog>
 				</uni-popup>
 			</view>
 		</view>
@@ -44,111 +45,109 @@
 	import uniPopupMessage from '@/components/uni-popup/uni-popup-message.vue'
 	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue'
 	export default {
-	    components: {
-	        uniPopup,
-	        uniPopupMessage,
-	        uniPopupDialog
-	    },
+		components: {
+			uniPopup,
+			uniPopupMessage,
+			uniPopupDialog
+		},
 		data() {
 			return {
-				username:''
+				username: ''
 			}
 		},
-		computed:{
+		computed: {
 			...mapState(['admin'])
 		},
 		methods: {
-			login(e){
+			login(e) {
 				uni.navigateTo({
-				    url: '/pages/my/login/index'
+					url: '/pages/my/login/index'
 				});
 			},
-			collect(){
+			collect() {
 				uni.navigateTo({
-					url:'/pages/my/collect/index'
+					url: '/pages/my/collect/index'
 				})
 			},
-			ziliao(){
+			ziliao() {
 				uni.navigateTo({
-					url:'/pages/my/ziliao/index'
+					url: '/pages/my/ziliao/index'
 				})
 			},
-			fankui(){
+			mima() {
 				uni.navigateTo({
-					url:'/pages/my/fankui/index'
+					url: '/pages/my/ziliao/password'
 				})
 			},
-			serve(){
+			serve() {
 				uni.navigateTo({
-					url:'/pages/my/serve/index'
+					url: '/pages/my/serve/index'
 				})
 			},
-			open(){
-			    this.$refs.popup.open()
+			open() {
+				this.$refs.popup.open()
 			},
-			 close(done){
-			    done()
+			close(done) {
+				done()
 			},
-			confirm(done,value){
+			confirm(done, value) {
 				uni.switchTab({
-					url:'/pages/home/home'
+					url: '/pages/home/home'
 				})
-				uni.clearStorage('admin')
-				this.admin = '';
-				this.username=''
-			    done()
+				this.$store.dispatch('outLogin')
+				done()
 			}
 		}
 	}
 </script>
 
 <style lang="less" scoped>
-	.myAll{
-		// width: 100%;
-		.myTop{
+	.myAll {
+		.myTop {
 			height: 8rem;
 			width: 100%;
-			background-color:white;
-			.myTop-heade{
+			background-color: white;
+			.myTop-heade {
 				position: absolute;
 				left: 2rem;
 				top: 1.5rem;
-				.myTop-image{
+				.myTop-image {
 					height: 4rem;
 					width: 4rem;
-					border: 1px solid red;
+					// border: 1px solid red;
 					text-align: center;
 					border-radius: 50%;
-					image{
+					image {
 						width: 3.4rem;
 						height: 3.4rem;
 						margin-top: 2px;
 					}
 				}
-				.mYTopHL{
+				.mYTopHL {
 					position: absolute;
 					top: 1rem;
 					width: 29rem;
 					left: 5rem;
 				}
-				.myTupHh{
+				.myTupHh {
 					position: absolute;
-					    top: 2.4rem;
-					    width: 29rem;
-					    left: 5rem;
-					    font-size: 13px;
-					    color: gray;
+					top: 2.4rem;
+					width: 29rem;
+					left: 5rem;
+					font-size: 13px;
+					color: gray;
 				}
 			}
 		}
-		.myList{
+
+		.myList {
 			position: relative;
 			height: 20rem;
 			width: 100%;
-			.myList-collect{
+			.myList-collect {
 				width: 100%;
 				position: absolute;
-				.collect-view{
+				.collect-view {
 					height: 3rem;
 					line-height: 3rem;
 					padding-left: 10%;

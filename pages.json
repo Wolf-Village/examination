@@ -70,16 +70,21 @@
             "navigationBarTitleText": "服务协议"
          }
     },{
-		"path" : "pages/my/fankui/index",
+		"path" : "pages/my/ziliao/password",
         "style" : {
-            "navigationBarTitleText": "用户反馈"
+            "navigationBarTitleText": "修改密码"
          }
     },{
-		"path" : "pages/my/ziliao/xiangqing",
+		"path" : "pages/my/ziliao/self",
         "style" : {
             "navigationBarTitleText": "修改昵称"
          }
-    }
+    },{
+         "path" : "pages/my/ziliao/signature",
+        "style" : {
+            "navigationBarTitleText": "修改个性签名"
+         }
+        }
     ],
 	"tabBar": {
 		"color": "#554D53",

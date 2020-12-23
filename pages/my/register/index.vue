@@ -33,23 +33,28 @@
 			reg(){
 				if(this.username == ''){
 					uni.showToast({
-						title:'手机号不能为空！'
+						title:'手机号不能为空！',
+						icon:'none'
 					})
 				}else if(this.username < 11){
 					uni.showToast({
-						title:'手机号不正确！'
+						title:'手机号不正确！',
+						icon:'none'
 					})
 				}else if(this.password == ''){
 					uni.showToast({
-						title:'密码不能为空！'
+						title:'密码不能为空！',
+						icon:'none'
 					})
 				}else if(this.password > 6 && this.password <16){
 					uni.showToast({
-						title:'密码长度在6-16位！'
+						title:'密码长度在6-16位！',
+						icon:'none'
 					})
 				}else if(this.regpassword != this.password){
 					uni.showToast({
-						title:'两次输入密码不一致！'
+						title:'两次输入密码不一致！',
+						icon:'none'
 					})
 				}else{
 					uni.request({

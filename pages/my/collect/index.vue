@@ -1,41 +1,24 @@
 <template>
 	<view class="collectBody">
-		<view class="collectBody-title" @click="shoucang">
-			累计收藏 道
+		<view class="collectBody-title">
+			累计收藏{{productList.length}}道
 		</view>
-		<uni-list class="collectBody-list" v-for="(item,index) in productList"  :key='index' :text='item.id'>		
-			    <uni-list-item>
-					<!--  :title="item.author_name" :note="item.title" -->
-					<!-- <uni-swipe-action> -->
-					    <uni-swipe-action-item :right-options="options" @click="cancel(item.id)" @change="change">
-							<uni-collapse accordion="true">
-							    <uni-collapse-item :title="item.name + '( '+ item.gudge +' )'" showAnimation='true' >
-							        <view class="list-body">
-							        	<view class="list-left">
-							        		<view class="list-content">
-												ssssss
-							        			A、{{item.id}}
-												{{index}}
-							        		</view>
-							        		<view class="list-content">
-							        			B、{{item.b}}
-							        		</view>
-							        		<view class="list-content">
-							        			C、{{item.c}}
-							        		</view>
-							        		<view class="list-content">
-							        			D、{{item.d}}
-							        		</view>
-							        	</view>
-							        </view>
-							    </uni-collapse-item>
-							</uni-collapse>
-					    </uni-swipe-action-item>
-					<!-- </uni-swipe-action>	 -->
-				</uni-list-item>	  		 
-			</uni-list>
-			</view>				
+		<view class="collectBody-list" v-for="(item,index) in productList"  :key='index' :text='item.id'>		
+			<uni-collapse accordion="true">
+				<uni-collapse-item  showAnimation='true' :title="item.name + '( '+ item.answer +' )'">
+					<view class="list-body">
+						<view class="list-left" v-for="(items,indexs) in item.options" :key='indexs'>
+							<view class="list-content">
+							    {{items.title}}
+							</view>
+						</view>
+					</view>
+				</uni-collapse-item>
+			</uni-collapse>
 		</view>
+	</view>				
+	</view>
+	</view>
 </template>
 <script>
 import uniCollapse from '@/components/uni-collapse/uni-collapse.vue'
@@ -48,9 +31,8 @@ export default {
 	
   data(){
     return {
-		// uid:'2',
 		productList: [],
-		id:'',
+		userid:'9',
 		options:[
 			{
 				text: '取消',
@@ -70,29 +52,20 @@ export default {
 		this.getList();
 	},
 	methods:{
-		 //  shoucang(){
-			//   uni.request({
-			// 	// 请求接口
-			// 	url:`${baseUrl}/users/collection`,
-			// 	// 请求方式
-			// 	method:'POST',
-			// 	data:{id:this.id},
-			// 	success(data){
-			// 		console.log(data.data.code)
-			// 		uni.navigateTo({
-			// 			url: '/pages/my/login/login'
-			// 		})
-			// 	}
-			//   })
-	  // },
 	getList() {			
+		const admin = uni.getStorageSync('admin')
+		const sign = admin.sign;
+		const _this = this;
 	  	uni.request({
-			url:`${baseUrl}/users/collection`,					
+			url:`${baseUrl}/problem/test`,					
 			method: 'POST',
-		  	data:{id:this.id},
+		  	data:{data:sign},
 			success(data){
-	  			console.log(data);
-	  			this.productList = data;
+				var newdata = data.data.data.map(item => {
+					item.options = JSON.parse(item.options)
+					return item
+				})
+	  			_this.productList = newdata;
 				},					
 	  		});
 		},
