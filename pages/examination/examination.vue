@@ -4,6 +4,38 @@
 		<view class="cu-load load-modal" v-if="loadModal">
 			<view class="gray-text">加载中...</view>
 		</view>
+		<!-- 侧边抽屉 -->
+		<view class="cu-modal drawer-modal justify-start" :class="endModalName=='DrawerModalL'?'show':''"  @tap="endHideModal">
+			<view class="cu-dialog basis-lg" @tap.stop="" :style="[{top:45+'px',height:'calc(100vh - ' + 45 + 'px)'}]">
+				<view class="flex justify-around flex-wrap">
+					<view class="arrow display-inline" v-for="(item,index) in topicsList.length" @click="selectTopic(index)"  :key="index">
+						<view class="content padding margin-top-sm " :class="answerTrueFalse[index]==null?'bg-grey':'bg-blue'" >
+							<view>{{index>=9? index +1:'0'+(index +1)}}</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		
+		<!-- 确定交卷 -->
+		<view class="cu-modal show" v-if="handInPapersModel">
+			<view class="cu-dialog">
+				<view class="cu-bar bg-white justify-end">
+					<view class="content">交卷</view>
+				</view>
+				<view class="padding-xl">您还有<text class="text-red text-bold">{{topicsList.length-trueAnswerNum-falseAnswerNum}}</text>道题没写,确定要交卷吗？
+				</view>
+				<view class="cu-bar bg-white justify-end">
+					<view class="action">
+						<button class="cu-btn line-blue text-blue" @tap="handInPapersModel = false">关闭</button>
+						<button class="cu-btn bg-blue margin-left" @tap="handInPapersTrue">提交</button>
+					</view>
+				</view>
+			</view>
+		</view>
+		
+		
+		
 		<!-- 判断对错的弹窗 -->
 		<view class="cu-modal show" v-if="!loadModal && modalName">
 			<view class="cu-dialog">
@@ -78,27 +110,15 @@
 			</view>
 			<!-- 底部统计 -->
 			<view class="box-buttom ">
-				<view class="flex col-3">
+				<view class="flex justify-between">
 					<!-- 统计答对数 -->
-					<view class="flex flex-sub align-center justify-center">
-						<view class="radius">
-							<text class="text-blue cuIcon-roundcheckfill" style="font-size: 25px;"></text>
-						</view>
-						<view class="radius">{{trueAnswerNum}}</view>
-					</view>
-					<!-- 统计答错数 -->
-					<view class="flex flex-sub align-center justify-center">
-						<view class="radius">
-							<text class="text-red cuIcon-roundclosefill" style="font-size: 25px;"></text>
-						</view>
-						<view class="radius">{{falseAnswerNum}}</view>
-					</view>
+					<view @click="handInPapers" class=" bg-olive padding-lr-xl padding-tb-sm radius">交卷</view>
 					<!-- 统计未答数 -->
-					<view class="flex flex-twice align-center justify-end">
+					<view @click="clickIndex" class="flex align-center justify-end">
 						<view class="radius">
 							<text class="text-gray cuIcon-timefill" style="font-size: 25px;"></text>
 						</view>
-						<view class="radius">未答{{50-trueAnswerNum-falseAnswerNum}}题</view>
+						<view class="radius">未答{{topicsList.length-trueAnswerNum-falseAnswerNum}}题</view>
 					</view>
 				</view>
 				<!-- 分页器 -->
@@ -117,12 +137,15 @@
 	export default {
 		data() {
 			return {
+				handInPapersModel:false,
+				// 题目序号弹窗的显示
+				endModalName: null,
 				// loading动画
 				loadModal: true,
 				// 题库
 				topicsList: [],
 				// 答案选项
-				answerOption: ['A', 'B', 'C', 'D'],
+				answerOption: ['A', 'B', 'C', 'D','E','F'],
 				// 已选择的答案
 				selectAnswerList: new Array(),
 				// 录入题目的对错
@@ -140,26 +163,46 @@
 				// 用户信息
 				admin: false,
 				// 存储随机出来的题目id
-				problemListIndex: [],
-				// 存储题目的页数
-				topicsIndex: 0
+				problemListIndex: []
 			}
 		},
 		mounted() {
+			// 生成随机数
 			this.rand()
+			// 获取题库
 			this.requestInterface(1)
+			// 获取用户信息
 			if (uni.getStorageSync('admin')) {
 				this.admin = uni.getStorageSync('admin')
 			}
 		},
 		methods: {
+			// 提示交卷事件
+			handInPapers:function(){
+				this.handInPapersModel = !this.handInPapersModel
+			},
+			// 交卷事件
+			handInPapersTrue:function(){
+				uni.redirectTo({
+					url:'./finish?'+`true=${this.trueAnswerNum}&false=${this.topicsList.length-this.trueAnswerNum}`
+				})
+			},
+			// 题目选择
+			selectTopic:function(index){
+				this.index = index
+				this.endModalName = null
+			},
+			// 隐藏弹窗
+			endHideModal:function(){
+				this.endModalName = null
+			},
+			// 显示所有题目的序号
+			clickIndex:function(){
+				this.endModalName = "DrawerModalL"
+			},
 			// 请求题库
-			requestInterface: function(page) {
-				console.log(this.topicsIndex)
-				console.log(this.topicsIndex * 10)
-				console.log((this.topicsIndex + 1) * 10)
-				const bbb = this.problemListIndex.slice(this.topicsIndex * 10, (this.topicsIndex + 1) * 10)
-				console.log(bbb)
+			requestInterface: function() {
+				const bbb = this.problemListIndex.slice(0, 50)
 				const data = JSON.stringify(bbb)
 				uni.request({
 					url: baseUrl + '/problem/test',
@@ -172,7 +215,6 @@
 					}) => {
 						console.log(data)
 						if (data.code === 200) {
-							this.topicsIndex += 1
 							this.loadModal = false;
 							const list = data.data.map(item => {
 								if (item.type === 'checkbox') {
@@ -196,15 +238,6 @@
 						this.loadModal = false;
 					}
 				})
-			},
-			// 请求下一页的题目数据
-			nextPageInterface: function() {
-				// console.log(Math.ceil(this.topicsList.length/10))
-				const page = Math.ceil(this.topicsList.length / 10)
-				if (this.index + 1 == this.topicsList.length - 1 && this.topicsList.length < 50) {
-					console.log('请求数据')
-					this.requestInterface(page + 1)
-				}
 			},
 			// 弹窗显示
 			showModel: function() {
@@ -271,7 +304,7 @@
 					this.showModel()
 				} else if (type === 'next') {
 					this.showModel()
-					this.nextPageInterface()
+					// this.nextPageInterface()
 					if (this.index + 1 < this.topicsList.length) {
 						this.index += 1
 					}
@@ -279,7 +312,6 @@
 			},
 			// 分页器事件
 			SerialNumber: function(e) {
-				this.nextPageInterface()
 				if (e.type == "next") {
 					this.index += 1
 					this.current = null

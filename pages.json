@@ -79,7 +79,12 @@
         "style" : {
             "navigationBarTitleText": "修改昵称"
          }
-    }
+    },{
+			"path":"pages/examination/finish",
+			"style":{
+				"navigationBarTitleText":"统计结果"
+			}
+		}
     ],
 	"tabBar": {
 		"color": "#554D53",
