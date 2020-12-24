@@ -12,15 +12,15 @@
 				</view>
 				<view class="padding-xl">
 					<view v-if="topicsList[index].type==='radio'">
-						正确答案为: {{answerOption[topicsList[index].answer]}};<br/>
+						正确答案为: {{answerOption[topicsList[index].answer]}};<br />
 						你的答案为: {{answerOption[selectAnswerList[index]]}};
 					</view>
 					<view v-if="topicsList[index].type==='judge'">
-						正确的答案是: {{topicsList[index].answer?'正确':'错误'}};<br/>
+						正确的答案是: {{topicsList[index].answer?'正确':'错误'}};<br />
 						你的选择的是: {{selectAnswerList[index]==='true'?'正确':'错误'}};
 					</view>
 					<view class=" " v-if="topicsList[index].type==='checkbox'">
-						正确的答案是: {{topicsList[index].answer.map(item=>{return answerOption[item]})}};<br/>
+						正确的答案是: {{topicsList[index].answer.map(item=>{return answerOption[item]})}};<br />
 						你的选择的是: {{selectAnswerList[index].map(item=>{return answerOption[item]})}};
 					</view>
 				</view>
@@ -45,7 +45,8 @@
 				<view @click="selectAnswerList[index] !==null? showModel:''">
 					<!-- 选择题答案样式 -->
 					<radio-group class="white100" v-if="topicsList[index].type==='radio'" @change="(e)=>radioChange(e,'radio')">
-						<label class="white100 flex padding-lr padding-top align-center" v-for="(items,indexs) in topicsList[index].options" :key="topicsList[index].id+items.title">
+						<label class="white100 flex padding-lr padding-top align-center" v-for="(items,indexs) in topicsList[index].options"
+						 :key="topicsList[index].id+items.title">
 							<view class="margin-xs radius">
 								<radio :disabled='answerTrueFalse[index]!==null' :value="`${indexs}`" :checked="indexs == selectAnswerList[index]" />
 							</view>
@@ -61,10 +62,10 @@
 					</radio-group>
 					<!-- 多选题答案样式 -->
 					<checkbox-group class="white100" v-if="topicsList[index].type==='checkbox'" @change="(e)=>radioChange(e,'checkbox')">
-					{{answerTrueFalse[index]}}
-						<label class="white100 flex padding-lr padding-top align-center" v-for="(items,indexs) in topicsList[index].options" :key="topicsList[index].id+items.title">
+						<label class="white100 flex padding-lr padding-top align-center" v-for="(items,indexs) in topicsList[index].options"
+						 :key="topicsList[index].id+items.title">
 							<view class="margin-xs radius">
-								<checkbox :disabled='answerTrueFalse[index]!==null' :value="`${indexs}`" :checked="selectAnswerList[index].includes(indexs)"/>
+								<checkbox :disabled='answerTrueFalse[index]!==null' :value="`${indexs}`" :checked="selectAnswerList[index].includes(indexs)" />
 							</view>
 							<view class="padding-sm margin-xs radius">{{items.title}}</view>
 						</label>
@@ -74,18 +75,10 @@
 					</checkbox-group>
 
 				</view>
-				<!-- 答案解析 -->
-				<view class="padding" v-if="selectAnswerList[index] !== null && topicsList[index].type!=='checkbox'">
-					<view class="text-orange text-xl">解析:</view>
-					<view class="text-gray text-df" style="text-indent: 2rem;">{{topicsList[index].explain}}</view>
-				</view>
 			</view>
 			<!-- 底部统计 -->
 			<view class="box-buttom ">
 				<view class="flex col-3">
-					<!-- 收藏按钮 -->
-					<uni-fav :checked="admin? admin.sign.includes(topicsList[index].id) : false" class="favBtn margin-right-lg" circle="true" fg-color="#000000" fg-color-checked="#FFFFFF"
-					 bg-color="#cacaca" bg-color-checked="#007AFF" @click="onClick"></uni-fav>
 					<!-- 统计答对数 -->
 					<view class="flex flex-sub align-center justify-center">
 						<view class="radius">
@@ -105,7 +98,7 @@
 						<view class="radius">
 							<text class="text-gray cuIcon-timefill" style="font-size: 25px;"></text>
 						</view>
-						<view class="radius">未答{{100-trueAnswerNum-falseAnswerNum}}题</view>
+						<view class="radius">未答{{50-trueAnswerNum-falseAnswerNum}}题</view>
 					</view>
 				</view>
 				<!-- 分页器 -->
@@ -124,10 +117,6 @@
 	export default {
 		data() {
 			return {
-				// 是否显示解析
-				problemAnalysis:false,
-				// 收藏按钮是否选中
-				checked: false,
 				// loading动画
 				loadModal: true,
 				// 题库
@@ -149,29 +138,41 @@
 				// 错误答案数
 				falseAnswerNum: 0,
 				// 用户信息
-				admin: false
+				admin: false,
+				// 存储随机出来的题目id
+				problemListIndex: [],
+				// 存储题目的页数
+				topicsIndex: 0
 			}
 		},
 		mounted() {
+			this.rand()
 			this.requestInterface(1)
-			if(uni.getStorageSync('admin')){
+			if (uni.getStorageSync('admin')) {
 				this.admin = uni.getStorageSync('admin')
 			}
 		},
 		methods: {
 			// 请求题库
 			requestInterface: function(page) {
+				console.log(this.topicsIndex)
+				console.log(this.topicsIndex * 10)
+				console.log((this.topicsIndex + 1) * 10)
+				const bbb = this.problemListIndex.slice(this.topicsIndex * 10, (this.topicsIndex + 1) * 10)
+				console.log(bbb)
+				const data = JSON.stringify(bbb)
 				uni.request({
-					url: baseUrl + '/problem/getdata',
+					url: baseUrl + '/problem/test',
 					data: {
-						page
+						data
 					},
 					method: 'POST',
 					success: ({
 						data
 					}) => {
+						console.log(data)
 						if (data.code === 200) {
-							// console.log(data)
+							this.topicsIndex += 1
 							this.loadModal = false;
 							const list = data.data.map(item => {
 								if (item.type === 'checkbox') {
@@ -200,7 +201,7 @@
 			nextPageInterface: function() {
 				// console.log(Math.ceil(this.topicsList.length/10))
 				const page = Math.ceil(this.topicsList.length / 10)
-				if (this.index + 1 == this.topicsList.length - 1 && this.topicsList.length<100) {
+				if (this.index + 1 == this.topicsList.length - 1 && this.topicsList.length < 50) {
 					console.log('请求数据')
 					this.requestInterface(page + 1)
 				}
@@ -210,13 +211,13 @@
 				this.modalName = !this.modalName
 			},
 			// 存储题目的选择对错
-			answerTrueAndFalse:function(whether){
-				if(whether){
+			answerTrueAndFalse: function(whether) {
+				if (whether) {
 					this.trueAnswerNum += 1
-				}else{
+				} else {
 					this.falseAnswerNum += 1
 				}
-				this.answerTrueFalse.splice(this.index,1,whether)
+				this.answerTrueFalse.splice(this.index, 1, whether)
 			},
 			// 选择答案的事件
 			radioChange: function(e, type) {
@@ -234,7 +235,7 @@
 						this.answerTrueAndFalse(true)
 					} else {
 						console.log('选择错误')
-						
+
 						this.answerTrueAndFalse(false)
 					}
 				}
@@ -248,20 +249,20 @@
 				let newList = checkboxValue.filter((val) => {
 					return newTrueAnswer.indexOf(val) > -1
 				})
-				if(this.answerTrueFalse[this.index]!==null){
+				if (this.answerTrueFalse[this.index] !== null) {
 					return false
 				}
 				if (checkboxValue.length !== newList.length) {
 					this.showModel()
 					this.answerTrueAndFalse(false)
-					
+
 				} else if (newList.length == newTrueAnswer.length) {
 					this.showModel()
 					this.answerTrueAndFalse(true)
 				} else {
 					this.showModel()
 					this.answerTrueAndFalse(false)
-					
+
 				}
 			},
 			// 弹窗事件
@@ -287,35 +288,17 @@
 					this.current = null
 				}
 			},
-			// 收藏按钮
-			onClick: function() {
-				if(!this.admin){
-					uni.showToast({
-						title:'您还没登录',
-						icon:'none'
-					})
-					return false
+			// 随机数
+			rand: function() {
+				var count = 200;
+				var a = new Array();
+				for (var i = 0; i < count; i++) {
+					a[i] = i + 1;
 				}
-				this.checked = !this.checked
-				let collectionType = 'add'
-				console.log('已收藏')
-				if(this.checked){
-					collectionType= 'add'
-				}else{
-					collectionType= 'delete'
-				}
-				uni.request({
-					url: baseUrl+'/collection',
-					method: 'POST',
-					data: {
-						id: this.topicsList[this.index].id,
-						userid: this.admin.userid,
-						type:collectionType
-					},
-					success:({data})=>{
-						console.log(data)
-					}
-				})
+				a.sort(function() {
+					return 0.5 - Math.random();
+				});
+				this.problemListIndex = a
 			}
 		}
 	}
@@ -350,7 +333,8 @@
 			}
 		}
 	}
-	.overflow-auto{
+
+	.overflow-auto {
 		overflow: auto;
 		height: 80vh;
 	}

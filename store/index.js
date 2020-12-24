@@ -16,14 +16,37 @@ export default new Vuex.Store({
 		getOutLogin(state) {
 			state.admin = ''
 		},
-		getNewZiliao(state,data){
-			var ziliao = {...state.admin,...data}
+		getNewZiliao(state, data) {
+			var ziliao = {
+				...state.admin,
+				...data
+			}
 			state.admin = ziliao
 			console.log(ziliao)
 			uni.setStorage({
 				key: 'admin',
 				data: ziliao
 			})
+		},
+		// 收藏
+		getCollection(state, {
+			type,
+			id
+		}) {
+			let newAdmin;
+			if (state.admin != '') {
+				newAdmin = JSON.parse(JSON.stringify(state.admin))
+			} else {
+				newAdmin = JSON.parse(JSON.stringify(uni.getStorageSync('admin')))
+			}
+			if (type == 'add') {
+				newAdmin.sign.push(id)
+			}
+			if (type == 'delete') {
+				newAdmin.sign = newAdmin.sign.filter(item => item !== id)
+			}
+			state.admin = newAdmin
+			uni.setStorageSync('admin', newAdmin)
 		}
 	},
 	actions: {
@@ -48,6 +71,7 @@ export default new Vuex.Store({
 						});
 					} else if (data.code == 200) {
 						commit('getLogin', data.data)
+						data.data.sign = JSON.parse(data.data.sign)
 						uni.setStorage({
 							key: 'admin',
 							data: data.data
@@ -64,6 +88,41 @@ export default new Vuex.Store({
 		}) {
 			uni.clearStorage('admin')
 			commit('getOutLogin')
+
+
+		},
+		// 收藏
+		collection({
+			commit
+		}, layer) {
+			const {
+				topicsListId,
+				userid,
+				collectionType
+			} = layer
+			uni.request({
+				url: baseUrl + '/collection',
+				method: 'POST',
+				data: {
+					id: topicsListId,
+					userid,
+					type: collectionType
+				},
+				success: ({
+					data
+				}) => {
+					uni.showToast({
+						title: data.msg,
+						icon: 'none'
+					})
+					commit('getCollection', {
+						type: collectionType,
+						id: topicsListId
+					})
+				}
+
+			})
 		}
+
 	}
 });

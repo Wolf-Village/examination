@@ -3,7 +3,8 @@
 		<view class="myTop">
 			<view class="myTop-heade">
 				<view class="myTop-image">
-					<image src="../../static/my/zhuce.png" mode="" @click="login"></image>
+					<image :src="$store.state.admin?$store.state.admin.portrait:'http://8.131.83.251:3981/img/upload/default.jpg'"
+					 mode="" @click="login"></image>
 				</view>
 				<view class="mYTopHL">
 					<text>{{!admin.username? '未登录' : admin.username}}</text>
@@ -27,6 +28,10 @@
 				<view class="" @click="mima" class="collect-view">
 					修改密码
 				</view>
+				<view class="" class="collect-view">
+					<view style="width: 40vw;float: left;">关于应用</view>
+					<view style="float: left;width: 40vw;text-align: right;">V1.1.0</view>
+				</view>
 				<view class="collect-view" style="margin: 7px 0px;text-align: center;padding-left: 0px;" @click="open">
 					退出
 				</view>
@@ -40,7 +45,9 @@
 </template>
 
 <script>
-	import {mapState} from 'vuex'
+	import {
+		mapState
+	} from 'vuex'
 	import uniPopup from '@/components/uni-popup/uni-popup.vue'
 	import uniPopupMessage from '@/components/uni-popup/uni-popup-message.vue'
 	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue'
@@ -107,28 +114,33 @@
 			height: 8rem;
 			width: 100%;
 			background-color: white;
+
 			.myTop-heade {
 				position: absolute;
 				left: 2rem;
 				top: 1.5rem;
+
 				.myTop-image {
 					height: 4rem;
 					width: 4rem;
 					// border: 1px solid red;
 					text-align: center;
 					border-radius: 50%;
+
 					image {
 						width: 3.4rem;
 						height: 3.4rem;
 						margin-top: 2px;
 					}
 				}
+
 				.mYTopHL {
 					position: absolute;
 					top: 1rem;
 					width: 29rem;
 					left: 5rem;
 				}
+
 				.myTupHh {
 					position: absolute;
 					top: 2.4rem;
@@ -144,9 +156,11 @@
 			position: relative;
 			height: 20rem;
 			width: 100%;
+
 			.myList-collect {
 				width: 100%;
 				position: absolute;
+
 				.collect-view {
 					height: 3rem;
 					line-height: 3rem;

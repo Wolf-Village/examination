@@ -94,7 +94,7 @@
 	.button {
 		height: 5vh;
 		width: 80vw;
-		background-color: rgb(180, 214, 252);
+		background-color: #59ABFF;
 		text-align: center;
 		color: white;
 		border-radius: 20px;

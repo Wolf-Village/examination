@@ -7,7 +7,7 @@
 			<input class="registerInput-input" type="number" value="" placeholder="请输入手机号"  v-model="username" maxlength="11"/>
 			<input class="registerInput-input" type="text" value="" placeholder="请输入密码"  v-model="password" password maxlength="16"/>
 			<view class="yinsi">
-				登录即同意<view style="color: rgb(180,214,252);" @click="xieyi">《用户使用协议》</view>和<view style="color: rgb(180,214,252);">《隐私协议》</view>
+				登录即同意<view style="color:#59ABFF;" @click="xieyi">《用户使用协议》</view>和<view style="color:#59ABFF;">《隐私协议》</view>
 			</view>
 			<view type="default" @click="open" class="registerLog">立即登录</view>
 			<uni-popup ref="popup" type="dialog">

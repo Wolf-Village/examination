@@ -21,10 +21,14 @@
 				正确答案为：<text class="text-red">{{detailslits.answer=='true'?'正确':'错误'}}</text>
 			</view>
 			<view class="jincehng-ti jincheng-font" v-if="detailslits.type=='checkbox'">
-				正确答案为：<text v-for="item in daan">{{optionList[item]}}</text>
+				正确答案为：<text v-for="(item,index) in daan" :key="index">{{optionList[item]}}</text>
 							</view>
 			<view class="jincehng-ti">
-				<text class="jincheng-font text-cyan">题目解析：</text>
+				<view class="flex justify-between">
+					<view class="jincheng-font text-cyan">题目解析：</view>
+					<uni-fav :checked="admin? admin.sign.includes(topicsList[index].id) : false" class="favBtn margin-right-lg" circle="true" fg-color="#000000" fg-color-checked="#FFFFFF"
+					 bg-color="#cacaca" bg-color-checked="#007AFF" @click="onClick"></uni-fav>	
+				</view>
 				<view class="text-grey jincehng-jiexi">
 					{{detailslits.explain}}
 				</view>
@@ -44,14 +48,49 @@
 				optionList:['A','B','C','D'],
 				detailslits:{},
 				optionli:[],
-				daan:[]
+				daan:[],
+				admin:"",
+				ids:0
+			}
+		},
+		mounted() {
+			if(uni.getStorageSync('admin')){
+				this.admin = uni.getStorageSync('admin')
+				console.log(this.admin)
+				// this.admin.sign = JSON.parse(this.admin.sign)
 			}
 		},
 		methods: {
+			onClick: function() {
+						const topicsListId = this.ids
+						if(!this.admin){
+							uni.showToast({
+								title:'您还没登录',
+								icon:'none'
+							})
+							return false
+						}
+						let collectionType = 'add'
+						if(!this.admin.sign.includes(topicsListId)){
+							collectionType= 'add'
+							this.admin.sign.push(topicsListId)
+						}else{
+							collectionType= 'delete'
+							this.admin.sign = this.admin.sign.filter(item => item !== topicsListId )
+						}
+						const userObj = {
+							userid:this.admin.userid,
+							topicsListId,
+							collectionType
+						}
+						this.$store.dispatch('collection',userObj)
+					}
+				
 			
 		},
 		 onLoad: function (option) { 
 			 const _this=this
+			 _this.ids=option.id
 				const topicId = option.id
 				uni.request({
 				    url: `${baseUrl}/problem/getdata`,
@@ -87,6 +126,7 @@
 	
 	}
 .jincehng-ti{
+	width: 100%;
 	padding: 10px;
 	font-size: 18px;
 	letter-spacing: 3px;

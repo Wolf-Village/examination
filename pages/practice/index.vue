@@ -1,66 +1,94 @@
 <template>
-	<view>
-		<view class="margin-xl cardbox shadow bg-white radius padding-sub ">
-			<view v-if="!imgUrl" class="cu-avatar xl round  bg-red">
-				<text class="avatar-text">未登录</text>
-			</view>
-			<view v-else class="cu-avatar xl round bg-grey" :style="{backgroundImage:'url('+ imgUrl +')' }"></view>
-			<view class="padding">考试类型：前端练习</view>
-			<view class="padding">考试标准：</view>
-			<view class="padding">合格标准：无标准</view>
-			<view class="padding">出题规则：根据北极星工作室技术部出题规则</view>
-			<view class="text-xs padding">
-				<text class="text-gray">计分规则：考试不能修改答案，每错1题扣1分，错题累计超过40道，考试不通过。</text>
-			</view>
-		</view>
-		<view class="margin-xl">
-			<view class="padding flex flex-direction">
-				<button class="cu-btn round bg-blue lg" @click="toPractice">开始练习</button>
-				<button class="cu-btn round bg-red margin-tb-sm lg" @click="toExamination">考前考试</button>
-			</view>
+	<view class="practice">
+		<view class="top">专项练习</view>
+		<view class="margin-top" v-for='(item,index) in imgList' :key='index' @click="toSubject(item.title)" >
+			<image :src="item.imgUrl"></image>
+			<view >{{item.title}}</view>
 		</view>
 	</view>
 </template>
+
 <script>
-	export default{
-		data(){
-			return{
-				imgUrl:false
-			}
-		},
-		mounted() {
-			if(uni.getStorageSync('admin').portrait){
-				this.imgUrl = uni.getStorageSync('admin').portrait
-			}
-		},
-		methods: {
-			// 去考试页面
-			toExamination(){
-				uni.switchTab({
-					url:'../examination/index'
-				})
+export default {
+  data() {
+    return {
+			imgList:[{
+				title:'HTML',
+				imgUrl:'/static/practice/006.png',
+			},{
+				title:'CSS',
+				imgUrl:'/static/practice/007.png',
+			},{
+				title:'JavaScript',
+				imgUrl:'/static/practice/009.png',
+			},{
+				title:'jQuery',
+				imgUrl:'/static/practice/008.png',
+			},{
+				title:'AJAX',
+				imgUrl:'/static/practice/013.png',
+			},{
+				title:'ES6',
+				imgUrl:'/static/practice/012.png',
+			},{
+				title:'Vue',
+				imgUrl:'/static/practice/011.png',
+			},{
+				title:'React',
+				imgUrl:'/static/practice/010.png',
+			},{
+				title:'Node',
+				imgUrl:'/static/practice/node.png',
+			},{
+				title:'Webpack',
+				imgUrl:'/static/practice/webpack.png',
 			},
-			// 去练习页面
-			toPractice(){
-				uni.navigateTo({
-					url:'./practice'
-				})
-			}
-		}
-	}
+			]
+		};
+  },
+  methods: {
+    toSubject: function(myclass) {
+			console.log(myclass)
+      uni.navigateTo({
+        url: `./practice?myclass=${myclass}`
+      });
+    }
+  }
+};
 </script>
 
 <style scoped lang="less">
-	.cardbox {
-		height: 80vw;
-		position: relative;
-		padding-top: 5vw;
-		margin-top: 5vh;
-		.cu-avatar {
-			position: absolute;
-			left: 50%;
-			top: 0;
-			transform: translate(-50%, -50%);
+	.practice{
+		width: 100vw;
+		height: 100vh;
+	}
+	.top{
+		height: 6vh;
+		width: 100%;
+		line-height: 6vh;
+		padding-left: 5vw;
+		background-color: white;
+		margin: 1vh 0vw;
+		box-shadow: 1px 1px 3px 0px darkgrey;
+	}
+	.margin-top{
+		background-color: white;
+		width: 43vw;
+		height: 6vh;
+		margin: 2vh 0vw 0vh 5vw;
+		float: left;
+		box-shadow: 1px 1px 3px 0px darkgrey;
+		image{
+			width: 8vw;
+			height: 8vw;
+			margin: 0px;
+			float: left;
+			margin: 9px;
+		}
+		view{
+			float: left;
+			line-height: 6vh;
+			height: 6vh;
 		}
 	}
 </style>

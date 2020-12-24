@@ -22,9 +22,6 @@
 				<view class="list-center" style="width: 25vw;">{{!admin.signature? '未登录' : admin.signature}}</view>
 			</view>
 		</view>
-		<view class="goOut" @click='bianji'>
-			编辑资料
-		</view>
 	</view>
 </template>
 
