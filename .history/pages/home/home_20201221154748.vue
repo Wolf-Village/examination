@@ -1,12 +1,5 @@
 <template>
   <view>
-    <!-- 搜索 -->
-	<view class="jincehng-input-box">
-	   <input class="jincheng-input" type="text" value="" placeholder="输入关键字" @click="search()"/>
-	   <view class="jincheng-search" >
-	    搜索
-	   </view>
-	  </view>
     <!-- 轮播图 -->
     <view class="swiperBox">
       <swiper
@@ -20,22 +13,6 @@
           ><image :src="item.url"></image
         ></swiper-item>
       </swiper>
-    </view>
-    <!-- 分类 -->
-    <view class="title">分类</view>
-    <view class="fenlei">
-      <view class="flex justify-between fl">
-        <view class="fl-left" @click="practice">
-          <text>练习</text>
-          <br />
-          <text>practice</text>
-        </view>
-        <view class="fl-right" @click="examination">
-          <text>考试</text>
-          <br />
-          <text>examination</text>
-        </view>
-      </view>
     </view>
     <!-- 新闻 -->
     <view class="news">
@@ -101,23 +78,9 @@ export default {
   },
   methods: {
     opennews(e) {
+      console.log(e.currentTarget.dataset.postid);
       uni.navigateTo({
         url: "./newsdate?postid=" + e.currentTarget.dataset.postid,
-      });
-    },
-    search() {
-      uni.switchTab({
-        url: "../search/search",
-      });
-    },
-    examination() {
-      uni.switchTab({
-        url: "../examination/index",
-      });
-    },
-    practice() {
-      uni.switchTab({
-        url: "../practice/index",
       });
     },
     changeIndicatorDots(e) {
@@ -137,32 +100,6 @@ export default {
 </script>
 
 <style lang="less">
-/* 搜索 */
-.jincehng-input-box{
-  height: 10vh;
-  background-color: white;
- }.jincheng-input {
-  width: 70vw;
-  height: 40px;
-  background: #fafafa;
-  border-bottom-left-radius: 15px;
-  border-top-left-radius: 15px;
-  padding-left: 20px;
-  float: left;
-  margin-left: 5vw;
-  margin-top: 3vh;
-  border: 1px solid #999999;
- }.jincheng-search {
-  width: 20vw;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-  border: #999999 1px solid;
-  margin-top: 3vh;
-  border-left: none;
-  padding-left: 5vw;
-  float: left;
-  line-height: 38px;
- }
 /* 轮播 */
 .swiper {
   width: 100%;
@@ -221,63 +158,19 @@ export default {
     }
   }
 }
-/* 分类 */
-.fenlei {
-  width: 100vw;
-  height: 14vh;
-  // margin: 0px 0px 2vh 0px;
-  background-color: white;
-  font-size: 20px;
-  .fl {
-    view {
-      border-radius: 10px;
-      width: 40vw;
-      height: 10vh;
-	  float: left;
-	  margin-left: 7vw;
-	  margin-top: 2vh;
-      color: #ffffff;
-      text {
-        font-style: italic;
-        display: block;
-        float: right;
-        margin-right: 10px;
-        line-height: 35px;
-      }
-    }
-    .fl-left {
-      text:nth-child(1) {
-        font-size: 20px;
-      }
-      background-color: #93e4fe;
-    }
-    .fl-right {
-      background-color: #2caeff;
-    }
-  }
-}
 /* 新闻 */
-.news{
-	background-color: white;
-}
 .title {
-  width: 100vw;
-  padding-left: 4vw;
-  margin-top: 1vh;
-  border-left: 4px solid #2caeff;
-  font-size: 14px;
+  width: 80%;
+  margin: 20px auto 0 auto;
+  font-size: 20px;
   font-family: 微软雅黑;
-  height: 6vh;
-  line-height: 6vh;
-  background-color: white;
 }
 .news-fu {
-  width: 94%;
-  height: 90px;
+  width: 90%;
+  height: 80px;
   margin: 20px auto;
   padding: 10px;
   background: no-repeat;
-  // background-color: white;
   background-size: 100% 100%;
   image {
     width: 35%;

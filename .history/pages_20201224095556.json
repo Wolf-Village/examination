@@ -1,6 +1,12 @@
 {
   "pages": [
     {
+      "path": "pages/home/home",
+      "style": {
+        "navigationBarTitleText": "首页"
+      }
+    },
+    {
       "path": "pages/home/newsdate",
       "style": {
         "navigationBarTitleText": "消息详情"
@@ -10,6 +16,12 @@
       "path": "pages/examination/examination",
       "style": {
         "navigationBarTitleText": "考试页面"
+      }
+    },
+    {
+      "path": "pages/practice/practice",
+      "style": {
+        "navigationBarTitleText": "练习页面"
       }
     },
     {
@@ -79,45 +91,15 @@
       }
     },
     {
-      "path": "pages/home/home",
+      "path": "pages/my/fankui/index",
       "style": {
-        "navigationBarTitleText": "首页"
-      }
-    },
-    {
-      "path": "pages/practice/practice",
-      "style": {
-        "navigationBarTitleText": "练习页面"
-      }
-    },
-    {
-      "path": "pages/my/ziliao/password",
-      "style": {
-        "navigationBarTitleText": "修改密码"
-      }
-    },
-    {
-      "path": "pages/my/ziliao/self",
-      "style": {
-        "navigationBarTitleText": "修改昵称"
-      }
-    },
-    {
-      "path": "pages/my/ziliao/signature",
-      "style": {
-        "navigationBarTitleText": "修改个性签名"
+        "navigationBarTitleText": "用户反馈"
       }
     },
     {
       "path": "pages/my/ziliao/xiangqing",
       "style": {
         "navigationBarTitleText": "修改昵称"
-      }
-    },
-    {
-      "path": "pages/examination/finish",
-      "style": {
-        "navigationBarTitleText": "统计结果"
       }
     }
   ],
@@ -156,12 +138,6 @@
         "iconPath": "static/iconimg/my.png",
         "selectedIconPath": "static/iconimg/my_S.png",
         "text": "我的"
-      },
-      {
-        "path": "pages/my/fankui/index",
-        "style": {
-          "navigationBarTitleText": "用户反馈"
-        }
       }
     ]
   },

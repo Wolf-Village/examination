@@ -1,8 +1,9 @@
 <template>
-	<view class="flex flex-wrap justify-around bor">
-		<view class="margin-top flex radius padding-lr align-center width40" v-for='(item,index) in imgList' :key='index' :style="{background:item.bgCoclor }" @click="toSubject(item.title)" >
-			<image class="radius margin-tb-sm margin-right" :src="item.imgUrl"></image>
-			<view  class="radius">{{item.title}}</view>
+	<view class="practice">
+		<view class="top">专项练习</view>
+		<view class="margin-top" v-for='(item,index) in imgList' :key='index' @click="toSubject(item.title)" >
+			<image :src="item.imgUrl"></image>
+			<view >{{item.title}}</view>
 		</view>
 	</view>
 </template>
@@ -12,45 +13,35 @@ export default {
   data() {
     return {
 			imgList:[{
-				title:'html',
+				title:'HTML',
 				imgUrl:'/static/practice/006.png',
-				bgCoclor:'#f37b1d'
 			},{
-				title:'css',
+				title:'CSS',
 				imgUrl:'/static/practice/007.png',
-				bgCoclor:'#fbbd08'
 			},{
-				title:'js',
+				title:'JavaScript',
 				imgUrl:'/static/practice/009.png',
-				bgCoclor:'#8dc63f'
 			},{
-				title:'jq',
+				title:'jQuery',
 				imgUrl:'/static/practice/008.png',
-				bgCoclor:'#39b54a'
 			},{
-				title:'ajax',
+				title:'AJAX',
 				imgUrl:'/static/practice/013.png',
-				bgCoclor:'#1cbbb4'
 			},{
-				title:'es6',
+				title:'ES6',
 				imgUrl:'/static/practice/012.png',
-				bgCoclor:'#0081ff'
 			},{
-				title:'vue',
+				title:'Vue',
 				imgUrl:'/static/practice/011.png',
-				bgCoclor:'#6739b6'
 			},{
-				title:'react',
+				title:'React',
 				imgUrl:'/static/practice/010.png',
-				bgCoclor:'#9c26b0'
 			},{
-				title:'node',
+				title:'Node',
 				imgUrl:'/static/practice/node.png',
-				bgCoclor:'#e03997'
 			},{
-				title:'webpack',
+				title:'Webpack',
 				imgUrl:'/static/practice/webpack.png',
-				bgCoclor:'#a5673f'
 			},
 			]
 		};
@@ -67,11 +58,37 @@ export default {
 </script>
 
 <style scoped lang="less">
-	.width40{
-		width: 40vw;
+	.practice{
+		width: 100vw;
+		height: 100vh;
+	}
+	.top{
+		height: 6vh;
+		width: 100%;
+		line-height: 6vh;
+		padding-left: 5vw;
+		background-color: white;
+		margin: 1vh 0vw;
+		border-left: 4px solid #2caeff;
+	}
+	.margin-top{
+		background-color: white;
+		width: 43vw;
+		height: 6vh;
+		margin: 2vh 0vw 0vh 5vw;
+		float: left;
+		box-shadow: 1px 1px 3px 0px darkgrey;
 		image{
-			width: 10vw;
-			height:10vw;
+			width: 8vw;
+			height: 8vw;
+			margin: 0px;
+			float: left;
+			margin: 9px;
+		}
+		view{
+			float: left;
+			line-height: 6vh;
+			height: 6vh;
 		}
 	}
 </style>

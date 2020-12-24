@@ -26,7 +26,7 @@
 			立即注册
 		</view>
 		<view class="agreement">
-			登录即同意<view style="color: rgb(180,214,252);" @click="xieyi">《用户使用协议》</view>和<view style="color: rgb(180,214,252);">《隐私协议》</view>
+			登录即同意<view style="color: #59ABFF;" @click="xieyi">《用户使用协议》</view>和<view style="color: #59ABFF;">《隐私协议》</view>
 		</view>
 	</view>
 </template>
