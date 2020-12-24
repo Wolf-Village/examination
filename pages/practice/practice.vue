@@ -5,6 +5,19 @@
           v-if="loadModal">
       <view class="gray-text">加载中...</view>
     </view>
+		<!-- 侧边抽屉 -->
+		<view class="cu-modal drawer-modal justify-start" :class="endModalName=='DrawerModalL'?'show':''" @tap="endHideModal">
+			<view class="cu-dialog basis-lg" @tap.stop="" :style="[{overflowY: 'scroll',height:'calc(100vh)'}]">
+				选择题号
+				<view class="flex justify-around flex-wrap">
+					<view class="arrow display-inline" v-for="(item,index) in topicsList.length" @click="selectTopic(index)" :key="item+index">
+						<view class="whiteFix content padding margin-top-sm " :class="answerTrueFalse[index]==null?'bg-grey':answerTrueFalse[index]?'bg-blue':'bg-red'">
+							<view>{{index>=9? index +1:'0'+(index +1)}}</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
     <!-- 判断对错的弹窗 -->
     <view class="cu-modal show"
           v-if="!loadModal && modalName">
@@ -21,10 +34,9 @@
             正确的答案是: {{topicsList[index].answer?'正确':'错误'}};<br />
             你的选择的是: {{selectAnswerList[index]==='true'?'正确':'错误'}};
           </view>
-          <view class=" "
-                v-if="topicsList[index].type==='checkbox'">
-            正确的答案是: {{topicsList[index].answer.map(item=>{return answerOption[item]})}};<br />
-            你的选择的是: {{selectAnswerList[index].map(item=>{return answerOption[item]})}};
+          <view v-if="topicsList[index].type==='checkbox'">
+          	正确的答案是: <text v-for="(item,index) in topicsList[index].answer" :key='item+index'>{{answerOption[item]}}</text>;<br />
+          	你的选择的是: <text v-for="(item,index) in selectAnswerList[index]" :key='item+index'>{{answerOption[item]}}</text>;
           </view>
         </view>
         <view class="cu-bar bg-white justify-end">
@@ -124,7 +136,7 @@
                    bg-color-checked="#007AFF"
                    @click="onClick"></uni-fav>
           <!-- 统计答对数 -->
-          <view class="flex flex-sub align-center justify-center">
+          <view  @click="clickIndex" class="flex flex-sub align-center justify-center">
             <view class="radius">
               <text class="text-blue cuIcon-roundcheckfill"
                     style="font-size: 25px;"></text>
@@ -132,7 +144,7 @@
             <view class="radius">{{trueAnswerNum}}</view>
           </view>
           <!-- 统计答错数 -->
-          <view class="flex flex-sub align-center justify-center">
+          <view  @click="clickIndex" class="flex flex-sub align-center justify-center">
             <view class="radius">
               <text class="text-red cuIcon-roundclosefill"
                     style="font-size: 25px;"></text>
@@ -140,12 +152,12 @@
             <view class="radius">{{falseAnswerNum}}</view>
           </view>
           <!-- 统计未答数 -->
-          <view class="flex flex-twice align-center justify-end">
+          <view  @click="clickIndex" class="flex flex-twice align-center justify-end">
             <view class="radius">
               <text class="text-gray cuIcon-timefill"
                     style="font-size: 25px;"></text>
             </view>
-            <view class="radius">未答{{100-trueAnswerNum-falseAnswerNum}}题</view>
+            <view class="radius">未答{{topicsList.length-trueAnswerNum-falseAnswerNum}}题</view>
           </view>
         </view>
         <!-- 分页器 -->
@@ -163,11 +175,13 @@
 <script>
 import { baseUrl } from "@/api/index.js";
 import uniPagination from "@/components/uni-pagination/uni-pagination.vue";
-
+import {mapState} from "vuex"
 export default {
   components: { uniPagination },
   data() {
     return {
+			// 题目序号弹窗的显示
+			endModalName: null,
       // 是否显示解析
       problemAnalysis: false,
       // 收藏按钮是否选中
@@ -196,16 +210,91 @@ export default {
       admin: false,
       // 当前题的类型
       myclss: "",
+			// 存储随机出来的题目id
+			problemListIndex: [],
+			
     };
   },
+	computed:{
+		...mapState(['favBtn'])
+	},
   onLoad(options) {
     this.myclass = options.myclass;
-    this.requestInterface(1);
+		if(options.myclass){
+			this.requestInterface(1);
+		}else{
+			this.rand()
+			this.randInterface(1)
+		}
     if (uni.getStorageSync("admin")) {
       this.admin = uni.getStorageSync("admin");
     }
   },
   methods: {
+		// 随机数
+		rand: function() {
+			var count = 215;
+			var a = new Array();
+			for (var i = 0; i < count; i++) {
+				a[i] = i + 1;
+			}
+			a.sort(function() {
+				return 0.5 - Math.random();
+			});
+			this.problemListIndex = a;
+		},
+		// 题目选择
+		selectTopic: function(index) {
+			this.index = index;
+			this.endModalName = null;
+		},
+		// 隐藏弹窗
+		endHideModal: function() {
+			this.endModalName = null;
+		},
+		// 显示所有题目的序号
+		clickIndex: function() {
+			this.endModalName = "DrawerModalL";
+		},
+		// 请求随机题库
+		randInterface:function(){
+			const bbb = this.problemListIndex.slice(50, 100);
+			const data = JSON.stringify(bbb);
+			uni.request({
+				url: baseUrl + "/problem/test",
+				data: {
+					data,
+				},
+				method: "POST",
+				success: ({
+					data
+				}) => {
+					if (data.code === 200) {
+						console.log(data)
+						this.loadModal = false;
+						const list = data.data.map((item) => {
+							if (item.type === "checkbox") {
+								this.selectAnswerList.push([]);
+							} else {
+								this.selectAnswerList.push(null);
+							}
+							this.answerTrueFalse.push(null);
+							item.answer = JSON.parse(item.answer);
+							item.options = JSON.parse(item.options);
+							return item;
+						});
+						this.topicsList.push(...list);
+						// console.log(this.topicsList)
+					} else {
+						console.log(data.msg);
+					}
+				},
+				fail: () => {
+					console.log("网络连接错误");
+					this.loadModal = false;
+				},
+			});
+		},
     // 请求题库
     requestInterface: function (page) {
       uni.request({
@@ -213,6 +302,7 @@ export default {
         data: {
           page,
           myclass: this.myclass,
+					num: 100
         },
         method: "POST",
         success: ({ data }) => {
@@ -235,7 +325,6 @@ export default {
           } else {
             console.log(data.msg);
           }
-          console.log(data);
           if (data.data.length == 0) {
             uni.showToast({
               title: "没有更多题目",
@@ -248,15 +337,6 @@ export default {
           this.loadModal = false;
         },
       });
-    },
-    // 请求下一页的题目数据
-    nextPageInterface: function () {
-      const topicsListLen = this.topicsList.length;
-      const page = Math.ceil(topicsListLen / 10);
-      if (this.index + 1 == topicsListLen - 1 && topicsListLen < 100) {
-        console.log("请求数据");
-        this.requestInterface(page + 1);
-      }
     },
     // 弹窗显示
     showModel: function () {
@@ -320,7 +400,6 @@ export default {
         this.showModel();
       } else if (type === "next") {
         this.showModel();
-        this.nextPageInterface();
         if (this.index + 1 < this.topicsList.length) {
           this.index += 1;
         }
@@ -329,7 +408,6 @@ export default {
     // 分页器事件
     SerialNumber: function (e) {
       if (e.type == "next") {
-        this.nextPageInterface();
         this.index += 1;
         this.current = null;
       } else {
@@ -339,6 +417,10 @@ export default {
     },
     // 收藏按钮
     onClick: function () {
+			if(!this.favBtn){
+				return false
+			}
+			this.$store.dispatch('FavBtn',{type:false})
       const topicsListId = this.topicsList[this.index].id;
       if (!this.admin) {
         uni.showToast({

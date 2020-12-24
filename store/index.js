@@ -6,7 +6,8 @@ import {
 } from '@/api/index.js'
 export default new Vuex.Store({
 	state: {
-		admin: uni.getStorageSync("admin") ? uni.getStorageSync("admin") : ""
+		admin: uni.getStorageSync("admin") ? uni.getStorageSync("admin") : "",
+		favBtn: true
 	},
 	mutations: {
 		getLogin(state, data) {
@@ -47,6 +48,9 @@ export default new Vuex.Store({
 			}
 			state.admin = newAdmin
 			uni.setStorageSync('admin', newAdmin)
+		},
+		falseFavBtn(state,type){
+			state.favBtn = type
 		}
 	},
 	actions: {
@@ -71,6 +75,7 @@ export default new Vuex.Store({
 						});
 					} else if (data.code == 200) {
 						commit('getLogin', data.data)
+						commit('falseFavBtn',true)
 						data.data.sign = JSON.parse(data.data.sign)
 						uni.setStorage({
 							key: 'admin',
@@ -88,8 +93,6 @@ export default new Vuex.Store({
 		}) {
 			uni.clearStorage('admin')
 			commit('getOutLogin')
-
-
 		},
 		// 收藏
 		collection({
@@ -115,6 +118,7 @@ export default new Vuex.Store({
 						title: data.msg,
 						icon: 'none'
 					})
+					commit('falseFavBtn',true)
 					commit('getCollection', {
 						type: collectionType,
 						id: topicsListId
@@ -122,6 +126,10 @@ export default new Vuex.Store({
 				}
 
 			})
+		},
+		// 禁用收藏按钮
+		FavBtn({commit},layer){
+			commit('falseFavBtn',layer.type)
 		}
 
 	}

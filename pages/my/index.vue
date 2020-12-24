@@ -3,11 +3,11 @@
 		<view class="myTop">
 			<view class="myTop-heade">
 				<view class="myTop-image">
-					<image :src="$store.state.admin?$store.state.admin.portrait:'http://8.131.83.251:3981/img/upload/default.jpg'"
-					 mode="" @click="login"></image>
+					<view v-if="!!admin.portrait" class="cu-avatar xl radius" :style="{backgroundImage:'url('+ admin.portrait +')'}" @click="login"></view>
+					<view v-else class="cu-avatar xl radius" style="background-image:url(http://8.131.83.251:3981/img/upload/default.jpg)"  @click="login"></view>
 				</view>
 				<view class="mYTopHL">
-					<text>{{!admin.username? '未登录' : admin.username}}</text>
+					<text>{{!admin.nickname? '未登录' : admin.nickname}}</text>
 				</view>
 				<view class="myTupHh">
 					立即预测考试通过率

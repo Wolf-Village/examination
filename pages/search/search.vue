@@ -141,6 +141,7 @@ export default {
             text: this.searchcontent,
           },
           success: (res) => {
+						// console.log(res)
             if (res.data.data.length > 0) {
               this.dataa = res.data.data.map((item) => {
                 item.options = JSON.parse(item.options);

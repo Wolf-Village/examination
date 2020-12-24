@@ -36,7 +36,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.wrap {
 		padding: 10upx 2%;
 		flex-wrap: wrap;
