@@ -1,5 +1,15 @@
 <template>
   <view>
+    <!-- 搜索 -->
+    <view class="jincehng-input-box" @click="search()">
+      <input
+        class="jincheng-input"
+        type="text"
+        value=""
+        placeholder="输入关键字"
+      />
+      <view class="text-red cu-btn round lines-red jincheng-search">搜索</view>
+    </view>
     <!-- 轮播图 -->
     <view class="swiperBox">
       <swiper
@@ -13,6 +23,22 @@
           ><image :src="item.url"></image
         ></swiper-item>
       </swiper>
+    </view>
+    <!-- 分类 -->
+    <view class="title">分类</view>
+    <view class="fenlei">
+      <view class="flex justify-between fl">
+        <view class="fl-left" @click="practice">
+          <text>练习</text>
+          <br />
+          <text>practice</text>
+        </view>
+        <view class="fl-right" @click="examination">
+          <text>考试</text>
+          <br />
+          <text>examination</text>
+        </view>
+      </view>
     </view>
     <!-- 新闻 -->
     <view class="news">
@@ -78,9 +104,23 @@ export default {
   },
   methods: {
     opennews(e) {
-      console.log(e.currentTarget.dataset.postid);
       uni.navigateTo({
         url: "./newsdate?postid=" + e.currentTarget.dataset.postid,
+      });
+    },
+    search() {
+      uni.switchTab({
+        url: "../search/search",
+      });
+    },
+    examination() {
+      uni.switchTab({
+        url: "../examination/index",
+      });
+    },
+    practice() {
+      uni.switchTab({
+        url: "../practice/index",
       });
     },
     changeIndicatorDots(e) {
@@ -100,6 +140,32 @@ export default {
 </script>
 
 <style lang="less">
+/* 搜索 */
+.jincehng-input-box {
+  display: flex;
+  margin-top: 10px;
+  margin: 25px auto;
+  width: 95%;
+  .jincheng-input {
+    width: 85%;
+    height: 40px;
+    background: #fafafa;
+    border-bottom-left-radius: 18px;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+    padding-left: 20px;
+    margin-right: 25px;
+    border: 1px solid red;
+  }
+  .jincheng-search {
+    width: 80px;
+    height: 38px;
+    font-size: 18px;
+    margin-right: 10px;
+    font-weight: bolder;
+  }
+}
 /* 轮播 */
 .swiper {
   width: 100%;
@@ -155,6 +221,38 @@ export default {
     image {
       width: 100%;
       height: 100%;
+    }
+  }
+}
+/* 分类 */
+.fenlei {
+  width: 80%;
+  height: 70px;
+  margin: 20px auto;
+  font-size: 20px;
+  .fl {
+    width: 100%;
+    view {
+      border-radius: 10px;
+      width: 42%;
+      height: 70px;
+      color: #ffffff;
+      text {
+        font-style: italic;
+        display: block;
+        float: right;
+        margin-right: 10px;
+        line-height: 35px;
+      }
+    }
+    .fl-left {
+      text:nth-child(1) {
+        font-size: 20px;
+      }
+      background-color: #93e4fe;
+    }
+    .fl-right {
+      background-color: #2caeff;
     }
   }
 }

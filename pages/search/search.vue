@@ -1,58 +1,57 @@
 <template>
-  <view style="    margin: auto;
-    width: 95%;">
+  <view style="margin: auto; width: 95%">
     <view class="jincehng-input-box">
-      <input class="jincheng-input"
-             type="text"
-             value=""
-             placeholder="输入关键字"
-             v-model="searchcontent" />
-      <view class=" text-red cu-btn round lines-red jincheng-search"
-            @click="search()">
+      <input
+        class="jincheng-input"
+        type="text"
+        value=""
+        placeholder="输入关键字"
+        v-model="searchcontent"
+      />
+      <view
+        class="text-red cu-btn round lines-red jincheng-search"
+        @click="search()"
+      >
         搜索
       </view>
     </view>
-    <view style="    margin: auto;
-    width: 95%;">
-      <view class="cu-load load-modal"
-            v-if="loadModal">
+    <view style="margin: auto; width: 95%">
+      <view class="cu-load load-modal" v-if="loadModal">
         <view class="gray-text">加载中...</view>
       </view>
-      <view class="margin"
-            v-show="isSistory">
-        <view class="flex justify-between"
-              style="width: 94%;">
-          <view class="text-orange"
-                style="font-size: 20px; ">
-            搜索历史
-          </view>
-          <text class="text-gray cuIcon-deletefill"
-                style="font-size: 25px;"
-                @click="empty"></text>
+      <view class="margin" v-show="isSistory">
+        <view class="flex justify-between" style="width: 94%">
+          <view class="text-orange" style="font-size: 20px"> 搜索历史 </view>
+          <text
+            class="text-gray cuIcon-deletefill"
+            style="font-size: 25px"
+            @click="empty"
+          ></text>
         </view>
         <view class="flex flex-wrap">
-          <view class="jincehng-ti jincheng-font bg-grey round margin-lr-sm margin-top "
-                v-for="(item,index) in historyList"
-                :key='index'
-                @click="history(item)">{{item}}</view>
+          <view
+            class="jincehng-ti jincheng-font bg-grey round margin-lr-sm margin-top"
+            v-for="(item, index) in historyList"
+            :key="index"
+            @click="history(item)"
+            >{{ item }}</view
+          >
         </view>
       </view>
-      <view class="jincehng-xuan"
-            style="    margin: 20px auto;
-    width: 95%;"
-            v-for="(item,index) in dataa"
-            :key='item+index'>
-        <view class="jincehng-ti jincheng-font"
-              @click="todetails(item.id)">
-          <view v-if="item.type=='radio'">[单选]</view>
-          <view v-if="item.type=='checkbox'">[多选]</view>
-          <view v-if="item.type=='judge'">[判断]</view>
-          {{item.name}}
+      <view
+        class="jincehng-xuan"
+        style="margin: 20px auto; width: 95%"
+        v-for="(item, index) in dataa"
+        :key="item + index"
+      >
+        <view class="jincehng-ti jincheng-font" @click="todetails(item.id)">
+          <view v-if="item.type == 'radio'">[单选]</view>
+          <view v-if="item.type == 'checkbox'">[多选]</view>
+          <view v-if="item.type == 'judge'">[判断]</view>
+          {{ item.name }}
         </view>
-
       </view>
     </view>
-
   </view>
 </template>
 <script>
@@ -176,9 +175,9 @@ export default {
     },
   },
   onLoad: function () {
-		if(!uni.getStorageSync("lishi")){
-			this.historyList = uni.getStorageSync("lishi");
-		}
+    if (!uni.getStorageSync("lishi")) {
+      this.historyList = uni.getStorageSync("lishi");
+    }
   },
 };
 </script>
