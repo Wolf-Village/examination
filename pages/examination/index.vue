@@ -6,7 +6,7 @@
 			</view>
 			<view v-else class="cu-avatar xl round bg-grey" :style="{backgroundImage:'url('+ imgUrl +')' }"></view>
 			<view class="padding">考试类型：前端考试</view>
-			<view class="padding">考试标准：</view>
+			<view class="padding">考试规则：考试时间为45分钟,倒计时结束,无论是否写完,都会交卷</view>
 			<view class="padding">合格标准：60分及格</view>
 			<view class="padding">出题规则：根据北极星工作室技术部出题规则</view>
 			<view class="text-lg padding">
