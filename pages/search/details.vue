@@ -26,8 +26,8 @@
 			<view class="jincehng-ti">
 				<view class="flex justify-between">
 					<view class="jincheng-font text-cyan">题目解析：</view>
-					<uni-fav :checked="admin? admin.sign.includes(topicsList[index].id) : false" class="favBtn margin-right-lg" circle="true" fg-color="#000000" fg-color-checked="#FFFFFF"
-					 bg-color="#cacaca" bg-color-checked="#007AFF" @click="onClick"></uni-fav>	
+					<!-- <uni-fav :checked="admin? admin.sign.includes(topicsList[index].id) : false" class="favBtn margin-right-lg" circle="true" fg-color="#000000" fg-color-checked="#FFFFFF"
+					 bg-color="#cacaca" bg-color-checked="#007AFF" @click="onClick"></uni-fav>	 -->
 				</view>
 				<view class="text-grey jincehng-jiexi">
 					{{detailslits.explain}}

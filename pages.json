@@ -1,6 +1,12 @@
 {
   "pages": [
     {
+      "path": "pages/home/home",
+      "style": {
+        "navigationBarTitleText": "首页"
+      }
+    },
+    {
       "path": "pages/home/newsdate",
       "style": {
         "navigationBarTitleText": "消息详情"
@@ -76,12 +82,6 @@
       "path": "pages/my/serve/index",
       "style": {
         "navigationBarTitleText": "服务协议"
-      }
-    },
-    {
-      "path": "pages/home/home",
-      "style": {
-        "navigationBarTitleText": "首页"
       }
     },
     {
