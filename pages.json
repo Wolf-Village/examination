@@ -97,19 +97,13 @@
       }
     },
     {
-      "path": "pages/my/ziliao/self",
-      "style": {
-        "navigationBarTitleText": "修改昵称"
-      }
-    },
-    {
       "path": "pages/my/ziliao/signature",
       "style": {
         "navigationBarTitleText": "修改个性签名"
       }
     },
     {
-      "path": "pages/my/ziliao/xiangqing",
+      "path": "pages/my/ziliao/self",
       "style": {
         "navigationBarTitleText": "修改昵称"
       }
@@ -156,12 +150,6 @@
         "iconPath": "static/iconimg/my.png",
         "selectedIconPath": "static/iconimg/my_S.png",
         "text": "我的"
-      },
-      {
-        "path": "pages/my/fankui/index",
-        "style": {
-          "navigationBarTitleText": "用户反馈"
-        }
       }
     ]
   },
