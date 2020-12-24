@@ -82,8 +82,9 @@
 				})
 			},
 			mima() {
+				console.log('ssss')
 				uni.navigateTo({
-					url: '/pages/my/ziliao/password'
+					url: '/pages/my/ziliao/password',
 				})
 			},
 			serve() {

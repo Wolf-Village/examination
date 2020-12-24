@@ -69,7 +69,7 @@ export default {
 		padding-left: 5vw;
 		background-color: white;
 		margin: 1vh 0vw;
-		box-shadow: 1px 1px 3px 0px darkgrey;
+		border-left: 4px solid #2caeff;
 	}
 	.margin-top{
 		background-color: white;

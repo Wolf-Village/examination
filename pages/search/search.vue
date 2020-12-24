@@ -12,7 +12,7 @@
 			</view>
 			<view class="margin1" v-show="isSistory">
 				<view class="flex justify-between">
-					<view class="text-orange" style="font-size: 20px; ">
+					<view class="text-orange" style="font-size: 14px;line-height: ; ">
 						搜索历史
 					</view>
 					<text class="text-gray cuIcon-deletefill" style="font-size: 25px;" @click="empty"></text>
@@ -225,6 +225,7 @@
 	}
 	.text-orange{
 		height: 4vh;
+		line-height: 4vh;
 		width: 100vw;
 		color: black;
 		background-color: white;

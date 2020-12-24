@@ -1,15 +1,12 @@
 <template>
   <view>
     <!-- 搜索 -->
-    <view class="jincehng-input-box" @click="search()">
-      <input
-        class="jincheng-input"
-        type="text"
-        value=""
-        placeholder="输入关键字"
-      />
-      <view class="text-red cu-btn round lines-red jincheng-search">搜索</view>
-    </view>
+	<view class="jincehng-input-box">
+	   <input class="jincheng-input" type="text" value="" placeholder="输入关键字" @click="search()"/>
+	   <view class="jincheng-search" >
+	    搜索
+	   </view>
+	  </view>
     <!-- 轮播图 -->
     <view class="swiperBox">
       <swiper
@@ -141,31 +138,31 @@ export default {
 
 <style lang="less">
 /* 搜索 */
-.jincehng-input-box {
-  display: flex;
-  margin-top: 10px;
-  margin: 25px auto;
-  width: 95%;
-  .jincheng-input {
-    width: 85%;
-    height: 40px;
-    background: #fafafa;
-    border-bottom-left-radius: 18px;
-    border-top-left-radius: 18px;
-    border-top-right-radius: 18px;
-    border-bottom-right-radius: 18px;
-    padding-left: 20px;
-    margin-right: 25px;
-    border: 1px solid red;
-  }
-  .jincheng-search {
-    width: 80px;
-    height: 38px;
-    font-size: 18px;
-    margin-right: 10px;
-    font-weight: bolder;
-  }
-}
+.jincehng-input-box{
+  height: 10vh;
+  background-color: white;
+ }.jincheng-input {
+  width: 70vw;
+  height: 40px;
+  background: #fafafa;
+  border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
+  padding-left: 20px;
+  float: left;
+  margin-left: 5vw;
+  margin-top: 3vh;
+  border: 1px solid #999999;
+ }.jincheng-search {
+  width: 20vw;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border: #999999 1px solid;
+  margin-top: 3vh;
+  border-left: none;
+  padding-left: 5vw;
+  float: left;
+  line-height: 38px;
+ }
 /* 轮播 */
 .swiper {
   width: 100%;
@@ -226,16 +223,19 @@ export default {
 }
 /* 分类 */
 .fenlei {
-  width: 80%;
-  height: 70px;
-  margin: 20px auto;
+  width: 100vw;
+  height: 14vh;
+  // margin: 0px 0px 2vh 0px;
+  background-color: white;
   font-size: 20px;
   .fl {
-    width: 100%;
     view {
       border-radius: 10px;
-      width: 42%;
-      height: 70px;
+      width: 40vw;
+      height: 10vh;
+	  float: left;
+	  margin-left: 7vw;
+	  margin-top: 2vh;
       color: #ffffff;
       text {
         font-style: italic;
@@ -257,18 +257,27 @@ export default {
   }
 }
 /* 新闻 */
+.news{
+	background-color: white;
+}
 .title {
-  width: 80%;
-  margin: 20px auto 0 auto;
-  font-size: 20px;
+  width: 100vw;
+  padding-left: 4vw;
+  margin-top: 1vh;
+  border-left: 4px solid #2caeff;
+  font-size: 14px;
   font-family: 微软雅黑;
+  height: 6vh;
+  line-height: 6vh;
+  background-color: white;
 }
 .news-fu {
-  width: 90%;
-  height: 80px;
+  width: 94%;
+  height: 90px;
   margin: 20px auto;
   padding: 10px;
   background: no-repeat;
+  // background-color: white;
   background-size: 100% 100%;
   image {
     width: 35%;

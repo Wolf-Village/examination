@@ -39,8 +39,8 @@
 <style>
 	.wrap {
 		padding: 10upx 2%;
-		width: 96%;
 		flex-wrap: wrap;
+		background-color: white;
 	}
 
 	.title {
