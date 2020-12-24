@@ -145,8 +145,11 @@ checkbox::before {
 	pointer-events: none;
 	transform: scale(1, 1);
 	transition: all 0.3s ease-in-out 0s;
+}
+radio::before{
 	z-index: 9;
 }
+
 
 radio .wx-radio-input,
 checkbox .wx-checkbox-input,
@@ -226,7 +229,7 @@ checkbox .wx-checkbox-input::before,
 radio .wx-radio-input::before,
 switch .uni-switch-input::before,
 radio.radio::before,
-checkbox .uni-checkbox-input::before,
+/* checkbox .uni-checkbox-input::before, */
 radio .uni-radio-input::before {
 	display: none;
 }
