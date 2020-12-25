@@ -1,94 +1,98 @@
 <template>
-	<view class="practice">
-		<view class="top">专项练习</view>
-		<view class="margin-top" v-for='(item,index) in imgList' :key='index' @click="toSubject(item.title)" >
-			<image :src="item.imgUrl"></image>
-			<view >{{item.title}}</view>
+	<view>
+		<view class="top margin-tb bg-white padding">专项练习</view>
+		<view class=" flex justify-around flex-wrap">
+			<view class="shadow bg-white margin-top flex padding-lr padding-tb-sm align-center " v-for='(item,index) in imgList'
+			 :key='index' @click="toSubject(item.name)">
+				<image class="margin-right-sm" :src="item.imgUrl"></image>
+				<view>{{item.title}}</view>
+			</view>
+		</view>
+		<view class="top margin-tb bg-white padding">模拟考试</view>
+		<view class="padding flex flex-direction">
+			<button class="cu-btn bg-grey lg" @click="randClick">点击进入模拟考试</button>
 		</view>
 	</view>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-			imgList:[{
-				title:'HTML',
-				imgUrl:'/static/practice/006.png',
-			},{
-				title:'CSS',
-				imgUrl:'/static/practice/007.png',
-			},{
-				title:'JavaScript',
-				imgUrl:'/static/practice/009.png',
-			},{
-				title:'jQuery',
-				imgUrl:'/static/practice/008.png',
-			},{
-				title:'AJAX',
-				imgUrl:'/static/practice/013.png',
-			},{
-				title:'ES6',
-				imgUrl:'/static/practice/012.png',
-			},{
-				title:'Vue',
-				imgUrl:'/static/practice/011.png',
-			},{
-				title:'React',
-				imgUrl:'/static/practice/010.png',
-			},{
-				title:'Node',
-				imgUrl:'/static/practice/node.png',
-			},{
-				title:'Webpack',
-				imgUrl:'/static/practice/webpack.png',
+	export default {
+		data() {
+			return {
+				imgList: [{
+					title: 'HTML',
+					name: "html",
+					imgUrl: '/static/practice/006.png',
+				}, {
+					title: 'CSS',
+					name: "css",
+					imgUrl: '/static/practice/007.png',
+				}, {
+					title: 'JavaScript',
+					name: 'js',
+					imgUrl: '/static/practice/009.png',
+				}, {
+					title: 'jQuery',
+					name: "jq",
+					imgUrl: '/static/practice/008.png',
+				}, {
+					title: 'AJAX',
+					name: "ajax",
+					imgUrl: '/static/practice/013.png',
+				}, {
+					title: 'ES6',
+					name: "es6",
+					imgUrl: '/static/practice/012.png',
+				}, {
+					title: 'Vue',
+					name: 'vue',
+					imgUrl: '/static/practice/011.png',
+				}, {
+					title: 'React',
+					name: 'react',
+					imgUrl: '/static/practice/010.png',
+				}, {
+					title: 'Node',
+					name: 'node',
+					imgUrl: '/static/practice/node.png',
+				}, {
+					title: 'Webpack',
+					name: 'webpack',
+					imgUrl: '/static/practice/webpack.png',
+				}, ]
+			};
+		},
+		methods: {
+			// 进入练习页面
+			toSubject: function(myclass) {
+				uni.navigateTo({
+					url: `./practice?myclass=${myclass}`
+				});
 			},
-			]
-		};
-  },
-  methods: {
-    toSubject: function(myclass) {
-			console.log(myclass)
-      uni.navigateTo({
-        url: `./practice?myclass=${myclass}`
-      });
-    }
-  }
-};
+			// 进入随机练习题
+			randClick: function(){
+				uni.navigateTo({
+					url: './practice'
+				});
+			}
+		}
+	};
 </script>
 
 <style scoped lang="less">
-	.practice{
-		width: 100vw;
-		height: 100vh;
-	}
-	.top{
-		height: 6vh;
+	.top {
 		width: 100%;
-		line-height: 6vh;
-		padding-left: 5vw;
-		background-color: white;
-		margin: 1vh 0vw;
 		border-left: 4px solid #2caeff;
 	}
-	.margin-top{
+
+	.margin-top {
 		background-color: white;
 		width: 43vw;
-		height: 6vh;
-		margin: 2vh 0vw 0vh 5vw;
-		float: left;
-		box-shadow: 1px 1px 3px 0px darkgrey;
-		image{
+		// box-shadow: 1px 1px 3px 0px darkgrey;
+
+		image {
 			width: 8vw;
 			height: 8vw;
-			margin: 0px;
-			float: left;
-			margin: 9px;
-		}
-		view{
-			float: left;
-			line-height: 6vh;
-			height: 6vh;
 		}
 	}
 </style>
