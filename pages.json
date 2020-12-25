@@ -1,5 +1,11 @@
 {
   "pages": [
+	{
+    "path": "pages/home/home",
+    "style": {
+      "navigationBarTitleText": "首页"
+    }
+  },
 	  {
 	    "path": "pages/home/newsdate",
 	    "style": {
@@ -77,13 +83,7 @@
 	    "style": {
 	      "navigationBarTitleText": "服务协议"
 	    }
-	  },
-	{
-    "path": "pages/home/home",
-    "style": {
-      "navigationBarTitleText": "首页"
-    }
-  }, {
+	  }, {
     "path": "pages/practice/practice",
     "style": {
       "navigationBarTitleText": "练习页面"

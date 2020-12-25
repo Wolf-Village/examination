@@ -7,7 +7,7 @@
 			<image src="../../../static/my/phone.png" mode=""></image>
 		</view>
 		<view class="button" @click="login">手机号登录</view>
-		<view class="order">
+		<view class="order" @click="phone">
 			使用其他方式登录
 		</view>
 		<view class="orderList">
@@ -56,7 +56,9 @@
 				      }
 				    });
 				  }
-			});
+				});
+		},
+		phone(){
 		},
 		login(){
 			uni.navigateTo({
@@ -72,6 +74,23 @@
 			uni.navigateTo({
 				url:'/pages/my/serve/index'
 			})
+		},
+		QQ(){
+			
+				uni.getProvider({
+				    service: 'oauth',
+				    success: function (res) {
+				        console.log(res.provider)
+				        if (~res.provider.indexOf('qq')) {
+				            uni.login({
+				                provider: 'qq',
+				                success: function (loginRes) {
+				                    console.log(JSON.stringify(loginRes));
+				                }
+				            });
+				        }
+				    }
+				});
 		}
 	}
 }

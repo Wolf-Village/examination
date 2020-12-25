@@ -5,7 +5,7 @@
 		</view>
 		<view class="collectBody-list" v-for="(item,index) in productList" :key='index' :text='item.id'>
 			<uni-collapse accordion="true">
-				<uni-collapse-item class="collectTitle" :title="item.name + '( '+ answer[item.answer] +' )'">
+				<uni-collapse-item class="collectTitle" :title="item.name + '( '+ answer[item.answer]  +' )'">
 					<view class="list-body">
 						<view class="list-left" v-for="(items,indexs) in item.options" :key='indexs'>
 							<view class="list-content">
@@ -44,7 +44,8 @@
 					4:'E',
 					5:'F',
 					true:'√',
-					false:'×'
+					false:'×',
+					
 				}
 			}
 		},
@@ -63,7 +64,8 @@
 							data: sign
 						},
 						success(data) {
-							console.log(data)
+							console.log(data.data.data[7].answer)
+							console.log(data.data.data[0].answer)
 							var newdata = data.data.data.map(item => {
 								item.options = JSON.parse(item.options)
 								return item
