@@ -31,6 +31,8 @@
 		onShow() {
 			if (uni.getStorageSync('admin').portrait) {
 				this.imgUrl = uni.getStorageSync('admin').portrait
+			}else{
+				this.imgUrl = false
 			}
 		},
 		methods: {
