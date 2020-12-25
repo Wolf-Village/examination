@@ -796,6 +796,12 @@ button.cuIcon.lg {
 	height: 32upx;
 }
 
+.cu-tag.xl {
+	font-size: 30upx;
+	padding: 0upx 18upx;
+	height: 48upx;
+}
+
 .cu-capsule {
 	display: inline-flex;
 	vertical-align: middle;
@@ -3125,6 +3131,31 @@ scroll-view.cu-steps .cu-item {
 
 .margin-lr-xl {
 	margin-left: 50upx;
+	margin-right: 50upx;
+}
+
+.margin-tr-xs {
+	margin-top: 10upx;
+	margin-right: 10upx;
+}
+
+.margin-tr-sm {
+	margin-top: 20upx;
+	margin-right: 20upx;
+}
+
+.margin-tr {
+	margin-top: 30upx;
+	margin-right: 30upx;
+}
+
+.margin-tr-lg {
+	margin-top: 40upx;
+	margin-right: 40upx;
+}
+
+.margin-tr-xl {
+	margin-top: 50upx;
 	margin-right: 50upx;
 }
 

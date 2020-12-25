@@ -228,7 +228,7 @@ export default {
     width: 100%;
 	font-size: 50rpx;
 	display: block;
-    color: #56de29;
+    color: #fff;
 	font-weight: 600;
     text-shadow: 0 0 10rpx inherit;
 }

@@ -3,7 +3,7 @@
 		<view class="result">
 			<view class="result_left">
 				<!--  -->
-				<vusSphereProgress :percent="trueTitle * 2" :color="['#fff','#0000FF','#39B54A']"></vusSphereProgress>
+				<vusSphereProgress :percent="trueTitle * 2" :color="['#8799a3','#39b54a','#8dc63f']"></vusSphereProgress>
 				<view class="text-center margin-top-sm lines-green">正确</view>
 			</view>
 			<view class="result_content">
@@ -11,27 +11,11 @@
 				<view class="text-center margin-top color">{{ trueTitle * 2 > 60 ? '及格' : '不及格' }}</view>
 			</view>
 			<view class="result_left">
-				<vusSphereProgress :percent="falseTitle * 2" :color="['#fff','#ee1c5e','#ee1c5e']"></vusSphereProgress>
+				<vusSphereProgress :percent="falseTitle * 2" :color="['#8799a3','#f43f3b','#ec008c']"></vusSphereProgress>
 				<view class="text-center margin-top-sm color">错误</view>
 			</view>
 		</view>
-		<!-- 	<view class="text-pink">
-			{{this.true*2}}
-		</view>
-		<view class="result">
-			<text class="text-pink">
-					{{this.true*2>60? '及格':'不及格'}}
-			</text>
-		</view>
-		<view class="">
-			您答对了<text class="text-green">{{this.true}}</text>道题
-			
-		</view>
-		<view class="">
-			您答错了<text class="text-red">{{this.false}}</text>道题
-		</view> -->
-
-		<button class="bg-blue margin-lr margin-top-lg" @click="outTo">退出</button>
+		<button class="bg-blue margin-lr margin-top-xl" @click="outTo">退出</button>
 	</view>
 </template>
 
