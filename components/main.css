@@ -3407,7 +3407,7 @@ scroll-view.cu-steps .cu-item {
 }
 
 .bg-red {
-	background-color: #e54d42;
+	background-color: #F56C6C;
 	color: #ffffff;
 }
 
@@ -3437,7 +3437,7 @@ scroll-view.cu-steps .cu-item {
 }
 
 .bg-blue {
-	background-color: #0081ff;
+	background-color: #59ABFF;
 	color: #ffffff;
 }
 
@@ -3912,4 +3912,8 @@ scroll-view.cu-steps .cu-item {
 .line-white,
 .lines-white {
 	color: #ffffff;
+}
+
+.display-inline{
+	display: inline-block;
 }

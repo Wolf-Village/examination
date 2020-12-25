@@ -139,7 +139,7 @@
 
 
 	.uni-collapse-cell--hide {
-		height: 48px;
+		// height: 48px;
 	}
 
 	.uni-collapse-cell--animation {
@@ -157,7 +157,6 @@
 		width: 100%;
 		box-sizing: border-box;
 		/* #endif */
-		height: 48px;
 		line-height: 24px;
 		flex-direction: row;
 		justify-content: space-between;
@@ -190,7 +189,6 @@
 		flex: 1;
 		font-size: $uni-font-size-base;
 		/* #ifndef APP-NVUE */
-		white-space: nowrap;
 		color: inherit;
 		/* #endif */
 		/* #ifdef APP-NVUE */

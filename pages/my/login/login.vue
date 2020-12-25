@@ -7,7 +7,7 @@
 			<input class="registerInput-input" type="number" value="" placeholder="请输入手机号"  v-model="username" maxlength="11"/>
 			<input class="registerInput-input" type="text" value="" placeholder="请输入密码"  v-model="password" password maxlength="16"/>
 			<view class="yinsi">
-				登录即同意<view style="color: rgb(180,214,252);" @click="xieyi">《用户使用协议》</view>和<view style="color: rgb(180,214,252);">《隐私协议》</view>
+				登录即同意<view style="color:#59ABFF;" @click="xieyi">《用户使用协议》</view>和<view style="color:#59ABFF;">《隐私协议》</view>
 			</view>
 			<view type="default" @click="open" class="registerLog">立即登录</view>
 			<uni-popup ref="popup" type="dialog">
@@ -29,8 +29,7 @@
 		data(){
 			return{
 				username:'',
-				password:'',
-				admin:''
+				password:''
 			}
 		},
 		methods:{
@@ -83,30 +82,6 @@
 						password:this.password
 					}
 					this.$store.dispatch('login',userObj)
-				// uni.request({
-				// 	// 请求接口
-				// 	url:`${baseUrl}/users/login`,
-				// 	// 请求方式
-				// 	method:'POST',
-				// 	data:{username:this.username,password:this.password,userid:this.userid},
-				// 	success(data){
-				// 		console.log(data.data)
-				// 		if(data.data.code == 0){
-				// 			uni.showToast({
-				// 				title:'登陆失败 请重试',
-				// 				icon:'none'
-				// 			});
-				// 		}else if (data.data.code == 200){
-				// 			uni.setStorage({
-				// 				key:'admin',
-				// 				data:data.data.data
-				// 			})
-				// 			uni.switchTab({
-				// 				url:'/pages/my/index'
-				// 			})
-				// 		}
-				// 		}
-				// 	})
 				}
 			},
 			xieyi(){

@@ -6,47 +6,68 @@ import {
 } from '@/api/index.js'
 export default new Vuex.Store({
 	state: {
-		admin: ''
+		admin: uni.getStorageSync("admin") ? uni.getStorageSync("admin") : "",
+		favBtn: true
 	},
 	mutations: {
-		// 登录
 		getLogin(state, data) {
 			state.admin = data
+			// console.log(data)
+		},
+		getOutLogin(state) {
+			state.admin = ''
+		},
+		getNewZiliao(state, data) {
+			var ziliao = {
+				...state.admin,
+				...data
+			}
+			state.admin = ziliao
+			console.log(ziliao)
+			uni.setStorage({
+				key: 'admin',
+				data: ziliao
+			})
 		},
 		// 收藏
-		getCollection(state, {type,id}) {
-			let newAdmin 
-			if(state.admin != ''){
+		getCollection(state, {
+			type,
+			id
+		}) {
+			let newAdmin;
+			if (state.admin != '') {
 				newAdmin = JSON.parse(JSON.stringify(state.admin))
-			}else{
+			} else {
 				newAdmin = JSON.parse(JSON.stringify(uni.getStorageSync('admin')))
 			}
-			if(type=='add'){
+			if (type == 'add') {
 				newAdmin.sign.push(id)
 			}
-			if(type=='delete'){
-				newAdmin.sign = newAdmin.sign.filter(item => item !== id )
+			if (type == 'delete') {
+				newAdmin.sign = newAdmin.sign.filter(item => item !== id)
 			}
 			state.admin = newAdmin
-			uni.setStorageSync('admin',newAdmin)
+			uni.setStorageSync('admin', newAdmin)
+		},
+		falseFavBtn(state,type){
+			state.favBtn = type
 		}
 	},
 	actions: {
-		// 登录
 		login({
 			commit
 		}, layer) {
-			console.log(layer)
+			// console.log(layer)
 			uni.request({
 				// 请求接口
 				url: `${baseUrl}/users/login`,
 				// 请求方式
 				method: 'POST',
 				data: layer,
-				success: ({
+				success({
 					data
-				}) => {
-					console.log(data)
+				}) {
+					// console.log(data)
 					if (data.code == 0) {
 						uni.showToast({
 							title: '登陆失败 请重试',
@@ -54,6 +75,7 @@ export default new Vuex.Store({
 						});
 					} else if (data.code == 200) {
 						commit('getLogin', data.data)
+						commit('falseFavBtn',true)
 						data.data.sign = JSON.parse(data.data.sign)
 						uni.setStorage({
 							key: 'admin',
@@ -65,6 +87,12 @@ export default new Vuex.Store({
 					}
 				}
 			})
+		},
+		outLogin({
+			commit
+		}) {
+			uni.clearStorage('admin')
+			commit('getOutLogin')
 		},
 		// 收藏
 		collection({
@@ -90,9 +118,19 @@ export default new Vuex.Store({
 						title: data.msg,
 						icon: 'none'
 					})
-					commit('getCollection', {type:collectionType,id:topicsListId})
+					commit('falseFavBtn',true)
+					commit('getCollection', {
+						type: collectionType,
+						id: topicsListId
+					})
 				}
+
 			})
+		},
+		// 禁用收藏按钮
+		FavBtn({commit},layer){
+			commit('falseFavBtn',layer.type)
 		}
+
 	}
 });

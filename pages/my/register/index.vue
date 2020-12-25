@@ -8,7 +8,7 @@
 			<input class="registerInput-input" type="text" password value="" placeholder="请输入密码" v-model="password" maxlength="16"/>
 			<input class="registerInput-input" type="text" password value="" placeholder="请确认密码" v-model="regpassword" maxlength="16"/>
 			<view class="yinsi">
-				注册即同意<view style="color: rgb(180,214,252);">《用户使用协议》</view>和<view style="color: rgb(180,214,252);">《隐私协议》</view>
+				注册即同意<view style="color: #59ABFF;">《用户使用协议》</view>和<view style="color: #59ABFF;">《隐私协议》</view>
 			</view>
 			<view type="default" @click="reg" class="registerLog">立即注册</view>
 		</view>
@@ -33,23 +33,28 @@
 			reg(){
 				if(this.username == ''){
 					uni.showToast({
-						title:'手机号不能为空！'
+						title:'手机号不能为空！',
+						icon:'none'
 					})
 				}else if(this.username < 11){
 					uni.showToast({
-						title:'手机号不正确！'
+						title:'手机号不正确！',
+						icon:'none'
 					})
 				}else if(this.password == ''){
 					uni.showToast({
-						title:'密码不能为空！'
+						title:'密码不能为空！',
+						icon:'none'
 					})
 				}else if(this.password > 6 && this.password <16){
 					uni.showToast({
-						title:'密码长度在6-16位！'
+						title:'密码长度在6-16位！',
+						icon:'none'
 					})
 				}else if(this.regpassword != this.password){
 					uni.showToast({
-						title:'两次输入密码不一致！'
+						title:'两次输入密码不一致！',
+						icon:'none'
 					})
 				}else{
 					uni.request({

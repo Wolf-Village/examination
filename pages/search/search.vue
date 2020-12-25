@@ -1,29 +1,27 @@
 <template>
-  <view style="    margin: auto;
-    width: 95%;">
+  <view style="margin: auto">
     <view class="jincehng-input-box">
       <input class="jincheng-input"
              type="text"
              value=""
              placeholder="输入关键字"
-             v-model="searchcontent" />
-      <view class=" text-red cu-btn round lines-red jincheng-search"
+             v-model="searchcontent"
+             @input="chone()" />
+      <view class="jincheng-search"
             @click="search()">
         搜索
       </view>
     </view>
-    <view style="    margin: auto;
-    width: 95%;">
+    <view style="margin: auto;">
       <view class="cu-load load-modal"
             v-if="loadModal">
         <view class="gray-text">加载中...</view>
       </view>
-      <view class="margin"
+      <view class="margin1"
             v-show="isSistory">
-        <view class="flex justify-between"
-              style="width: 94%;">
+        <view class="flex justify-between">
           <view class="text-orange"
-                style="font-size: 20px; ">
+                style="font-size: 14px;line-height: ; ">
             搜索历史
           </view>
           <text class="text-gray cuIcon-deletefill"
@@ -31,7 +29,7 @@
                 @click="empty"></text>
         </view>
         <view class="flex flex-wrap">
-          <view class="jincehng-ti jincheng-font bg-grey round margin-lr-sm margin-top "
+          <view class="jincehng-ti1 jincheng-font bg-grey round margin-lr-sm margin-top "
                 v-for="(item,index) in historyList"
                 :key='index'
                 @click="history(item)">{{item}}</view>
@@ -44,9 +42,12 @@
             :key='item+index'>
         <view class="jincehng-ti jincheng-font"
               @click="todetails(item.id)">
-          <view v-if="item.type=='radio'">[单选]</view>
-          <view v-if="item.type=='checkbox'">[多选]</view>
-          <view v-if="item.type=='judge'">[判断]</view>
+          <view v-if="item.type=='radio'"
+                style="margin-bottom: 1vh;font-weight: 700;">[单选]</view>
+          <view v-if="item.type=='checkbox'"
+                style="font-weight: 900;">[多选]</view>
+          <view v-if="item.type=='judge'"
+                style="font-weight: 900;">[判断]</view>
           {{item.name}}
         </view>
 
@@ -75,9 +76,17 @@ export default {
     };
   },
   methods: {
+    // 搜索框为空时显示搜索历史
+    chone() {
+      if (this.searchcontent.length == 0) {
+        this.isSistory = true;
+        this.dataa.length = 0;
+        this.dataa.splice(0, this.dataa.length);
+      }
+    },
     // 搜索历史搜索
     history(text) {
-      console.log(text);
+      this.searchcontent = text;
       uni.request({
         url: `${baseUrl}/serach`,
         method: "POST",
@@ -85,7 +94,7 @@ export default {
           text: text,
         },
         success: (res) => {
-          this.searchcontent = "";
+          // this.searchcontent = "";
           if (res.data.data.length > 0) {
             this.dataa = res.data.data.map((item) => {
               item.options = JSON.parse(item.options);
@@ -131,7 +140,7 @@ export default {
             text: this.searchcontent,
           },
           success: (res) => {
-            this.searchcontent = "";
+						// console.log(res)
             if (res.data.data.length > 0) {
               this.dataa = res.data.data.map((item) => {
                 item.options = JSON.parse(item.options);
@@ -175,7 +184,6 @@ export default {
     },
   },
   onLoad: function () {
-   
 	if(!uni.getStorageSync("lishi")){
 		uni.setStorageSync('lishi','')
 	}else{
@@ -186,25 +194,34 @@ export default {
 </script>
 
 <style>
+.jincehng-input-box {
+  height: 10vh;
+  border-bottom: 1px solid #999999;
+  background-color: white;
+}
 .jincheng-input {
-  width: 85%;
+  width: 70vw;
   height: 40px;
   background: #fafafa;
-  border-bottom-left-radius: 18px;
-  border-top-left-radius: 18px;
-  border-top-right-radius: 18px;
-  border-bottom-right-radius: 18px;
+  border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
   padding-left: 20px;
-  margin-right: 25px;
-  border: 1px solid red;
+  float: left;
+  margin-left: 5vw;
+  margin-top: 3vh;
+  border: 1px solid #999999;
 }
 
 .jincheng-search {
-  width: 80px;
-  height: 38px;
-  font-size: 18px;
-  margin-right: 10px;
-  font-weight: bolder;
+  width: 20vw;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border: #999999 1px solid;
+  margin-top: 3vh;
+  border-left: none;
+  padding-left: 5vw;
+  float: left;
+  line-height: 38px;
 }
 
 .jincehng-xuan {
@@ -215,23 +232,35 @@ export default {
   word-wrap: break-word;
   word-break: normal;
 }
-
-.jincehng-input-box {
-  display: flex;
-  margin-top: 10px;
-  margin: 25px auto;
-  width: 95%;
-}
-
 .jincehng-ti {
-  padding: 10px;
-  font-size: 18px;
+  /* padding: 10px; */
+  border-radius: 0px !important;
+  font-size: 14px;
+  padding: 2vh 4vw;
   letter-spacing: 3px;
   letter-spacing: 0px;
 }
-
+.justify-between {
+  width: 100vw;
+  background-color: white;
+  padding: 1vh 3vw;
+}
+.jincehng-ti1 {
+  background-color: #dddddd;
+  color: grey;
+  font-size: 14px;
+  padding: 1vh 3vw;
+  border-radius: 15px;
+}
+.text-orange {
+  height: 4vh;
+  line-height: 4vh;
+  width: 100vw;
+  color: black;
+  background-color: white;
+}
 .jincheng-font {
-  font-weight: bolder;
+  /* font-weight: bolder; */
 }
 
 .jincehng-jiexi {
