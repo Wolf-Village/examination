@@ -8,9 +8,9 @@
 				<view>{{item.title}}</view>
 			</view>
 		</view>
-		<view class="top margin-tb bg-white padding">模拟考试</view>
+		<view class="top margin-tb bg-white padding">汇总练习</view>
 		<view class="padding flex flex-direction">
-			<button class="cu-btn bg-grey lg" @click="randClick">点击进入模拟考试</button>
+			<button class="cu-btn bg-grey lg" @click="randClick">点击进入汇总练习</button>
 		</view>
 	</view>
 </template>
