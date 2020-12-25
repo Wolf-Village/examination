@@ -122,7 +122,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.jincehng-xuan {
 		width: 90%;
 		margin: 10px auto;

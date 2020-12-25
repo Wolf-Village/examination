@@ -193,7 +193,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .jincehng-input-box {
   height: 10vh;
   border-bottom: 1px solid #999999;
