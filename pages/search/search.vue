@@ -112,8 +112,7 @@ export default {
     },
     // 清除历史
     empty() {
-      this.historyList.length = 0;
-      this.historyList.splice(0, this.historyList.length);
+      this.historyList = []
       uni.setStorageSync("lishi", []);
     },
     // 搜索接口
@@ -176,7 +175,12 @@ export default {
     },
   },
   onLoad: function () {
-    this.historyList = uni.getStorageSync("lishi");
+   
+	if(!uni.getStorageSync("lishi")){
+		uni.setStorageSync('lishi','')
+	}else{
+		 this.historyList = uni.getStorageSync("lishi");
+	}
   },
 };
 </script>
