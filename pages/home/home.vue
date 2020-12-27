@@ -1,5 +1,6 @@
 <template>
   <view>
+    <view class="status_bar"><!-- 这里是状态栏 --></view>
     <!-- 搜索 -->
     <view class="jincehng-input-box" @click="search()">
       <input
@@ -139,7 +140,12 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style scoped lang="less">
+.status_bar {
+  height: var(--status-bar-height);
+  width: 100%;
+  background-color: #ff5b5b;
+}
 /* 搜索 */
 .jincehng-input-box {
   display: flex;
