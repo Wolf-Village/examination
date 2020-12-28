@@ -3,7 +3,10 @@
 		<view class="collectBody-title">
 			累计收藏{{productList.length}}道
 		</view>
-		<view class="collectBody-list" v-for="(item,index) in productList" :key='index' :text='item.id'>
+		<view v-if="admin.sign.length<=0">
+			您还没有收藏过题目
+		</view>
+		<view v-else class="collectBody-list" v-for="(item,index) in productList" :key='index' :text='item.id'>
 			<uni-collapse accordion="true">
 				<uni-collapse-item class="collectTitle" :title="item.name + '( '+ answer[item.answer]  +' )'">
 					<view class="list-body">
@@ -60,8 +63,14 @@
 			getList() {
 				const admin = uni.getStorageSync('admin')
 				const sign = JSON.stringify(admin.sign);
-				console.log(sign)
 				const _this = this;
+				if(admin.sign.length<=0){
+					uni.showToast({
+						title:'您还没有收藏过题目',
+						icon:'none'
+					})
+					return false
+				}
 				uni.request({
 					url: `${baseUrl}/problem/test`,
 					method: 'POST',

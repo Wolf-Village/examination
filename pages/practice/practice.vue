@@ -455,6 +455,10 @@ export default {
   width: 90vw;
 }
 
+.whiteFix {
+		width: 50px;
+	}
+
 .white100 {
   width: 100vw;
 }

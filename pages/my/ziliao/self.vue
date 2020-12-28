@@ -52,8 +52,8 @@
 								_this.$store.commit('getNewZiliao', {
 									nickname: _this.nickname
 								})
-								uni.navigateTo({
-									url: './index'
+								uni.switchTab({
+									url: '../index'
 								})
 							} else {
 								uni.showToast({
