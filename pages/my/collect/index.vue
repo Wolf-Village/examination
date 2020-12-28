@@ -64,8 +64,6 @@
 							data: sign
 						},
 						success(data) {
-							console.log(data.data.data[7].answer)
-							console.log(data.data.data[0].answer)
 							var newdata = data.data.data.map(item => {
 								item.options = JSON.parse(item.options)
 								return item

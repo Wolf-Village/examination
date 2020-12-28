@@ -5,8 +5,8 @@
 		</view>
 		<view class="registerInput">
 			<input class="registerInput-input" value="" placeholder="请输入邮箱" v-model="username" />
-			<input type="text" placeholder="验证码" v-model="code" />
-			<button type="default" style="width: 30vw;" @click="sendcode" :disabled="isdisabled">{{disabledtext}}</button>
+			<input class="registerInput-input1" style="float: left;" type="text" placeholder="验证码" v-model="code"/>
+			<button type="default" style="width:40vw:left; 20vw;margin: 2vh 6vw 2vh 20vw;height: 4vh;font-size: 14px;" @click="sendcode" :disabled="isdisabled">{{disabledtext}}</button>
 			<input class="registerInput-input" type="text" password value="" placeholder="请输入密码" v-model="password" maxlength="16" />
 			<input class="registerInput-input" type="text" password value="" placeholder="请确认密码" v-model="regpassword" maxlength="16" />
 			<view class="yinsi">

@@ -17,9 +17,9 @@
 				<view class="list-left">账号</view>
 				<view class="list-center" style="width: 25vw;">{{!admin.username ? '未登录' :admin.username}}</view>
 			</view>
-			<view class="list-item">
-				<view class="list-left" @click="signature">个性签名</view>
-				<view class="list-center" style="width: 25vw;">{{!admin.signature? '未登录' : admin.signature}}</view>
+			<view class="list-item" style="height: 15vh;">
+				<view class="list-left" @click="signature" style="width:100vw">个性签名</view>
+				<view class="list-center" style="text-align:left;width: 100vw;margin-top: 1vh;">{{!admin.signature? '未登录' : admin.signature}}</view>
 			</view>
 		</view>
 	</view>
