@@ -14,7 +14,7 @@
 				<view class="list-center" style="width: 25vw;">{{!admin.sex? '未登录' : admin.sex}}</view>
 			</view>
 			<view class="list-item">
-				<view class="list-left">手机号</view>
+				<view class="list-left">账号</view>
 				<view class="list-center" style="width: 25vw;">{{!admin.username ? '未登录' :admin.username}}</view>
 			</view>
 			<view class="list-item">
