@@ -12,7 +12,7 @@
 			<view type="default" @click="open" class="registerLog">立即登录</view>
 			<uni-popup ref="popup" type="dialog">
 				<uni-popup-dialog type="input" message="成功消息" :duration="2000" :before-close="true" @close="close" @confirm="confirm"
-				 content='登录即同意《刷题宝认证服务与隐私协议》《用户隐私协议》《隐私协议》'>
+				content='登录即同意《刷题宝认证服务与隐私协议》《用户隐私协议》《隐私协议》'>
 				</uni-popup-dialog>
 			</uni-popup>
 		</view>
